@@ -1,0 +1,1619 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ECEFC4">
+<meta name="description" content="Сад слов — карточки и упражнения по английскому: по чуть-чуть каждый день.">
+<title>Сад слов</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='22' fill='%23839958'/%3E%3Cpath d='M24 36 C14 30 14 18 24 12 C34 18 34 30 24 36 Z' fill='%23F7F4D5'/%3E%3Cpath d='M24 36 V18' stroke='%23839958' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Manrope:wght@400;500;600;700;800&family=Marck+Script&display=swap">
+<style>
+/* Layout: светлый «урок в Miro» — бежевый лист, карточки-таблички со скруглением, рукописные заголовки разделов, пилюли-кнопки; урок — одна крупная карточка по центру */
+:root{
+  --cream:#F7F4D5; --paper:#FFFDF2; --paper-2:#F1EFD0; --matcha:#E6EBC9;
+  --forest:#0A3323; --moss:#839958; --moss-deep:#5F7A3C; --rose:#D3968C; --rose-ink:#9C5447; --teal:#105666;
+  --ink:#0A3323; --ink-2:#4F6150; --line:rgba(10,51,35,.14); --line-2:rgba(10,51,35,.26);
+  --shadow:0 1px 0 rgba(10,51,35,.04), 0 14px 32px -20px rgba(10,51,35,.45);
+  --f-display:"Unbounded", "Arial Black", system-ui, sans-serif;
+  --f-body:"Manrope", "Segoe UI", system-ui, sans-serif;
+  --f-script:"Marck Script", "Segoe Script", cursive;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--cream);-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;position:relative;
+  background:#ECEFC4}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:#ECEFC4 var(--bgimg) center bottom/cover no-repeat}
+.motes{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.motes i{position:absolute;top:-20px;width:11px;height:8px;border-radius:70% 0 70% 0;background:var(--rose);opacity:0;animation:fall linear infinite}
+@keyframes fall{0%{transform:translate(0,0) rotate(0);opacity:0}10%{opacity:.55}90%{opacity:.45}100%{transform:translate(var(--dx,30px),108vh) rotate(320deg);opacity:0}}
+.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:24px 64px;display:flex;flex-direction:column;gap:30px}
+h1,h2,h3{margin:0;line-height:1.1;text-wrap:balance}
+.lbl{font-family:var(--f-body);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--moss-deep)}
+.muted{color:var(--ink-2);font-size:14px;margin:0}
+.err{color:var(--rose-ink);font-size:14px;margin:0}
+
+/* header */
+header.top{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:6px 0 18px;border-bottom:1.5px dashed var(--line-2)}
+.brand{display:flex;align-items:center;gap:14px}
+.brand .seal{width:54px;height:54px;flex:none}
+.brand h1{font-family:var(--f-display);font-weight:800;font-size:clamp(30px,6vw,52px);letter-spacing:-.01em;color:var(--forest);text-transform:uppercase}
+.brand h1 b{color:var(--moss);font-weight:800}
+.brand p{margin:0;font-family:var(--f-script);font-size:clamp(20px,3vw,26px);color:var(--rose-ink);line-height:1.1}
+.player{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:8px 10px 8px 18px;box-shadow:var(--shadow)}
+.role{font-family:var(--f-body);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border:1.5px solid var(--moss);color:var(--moss-deep);border-radius:999px}
+.rank{display:flex;flex-direction:column;gap:4px;min-width:150px}
+.rank .t{font-family:var(--f-script);font-size:22px;line-height:1;color:var(--forest)}
+.bar{height:7px;background:var(--matcha);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--moss);border-radius:99px}
+.rank .s{font-size:12px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.streak{display:flex;align-items:center;gap:6px;background:var(--rose);color:var(--paper);border-radius:999px;padding:6px 14px}
+.streak b{font-family:var(--f-display);font-size:20px;font-variant-numeric:tabular-nums;line-height:1}
+.streak span{font-size:11px;line-height:1.15;font-weight:700}
+.sndbtn{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line-2);background:var(--paper);color:var(--forest);cursor:pointer;display:grid;place-items:center;flex:none}
+.sndbtn svg{width:19px;height:19px}
+.sndbtn[aria-pressed="false"]{color:var(--ink-2)}
+
+/* buttons */
+.btn{font-family:var(--f-body);font-size:14px;font-weight:700;letter-spacing:.01em;border:1.5px solid var(--forest);background:transparent;color:var(--forest);
+  padding:9px 18px 10px;min-height:42px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;transition:background .15s,color .15s,transform .1s,box-shadow .15s}
+.btn:hover{background:var(--matcha)}
+.btn:active{transform:translateY(1px) scale(.99)}
+.btn.primary{background:var(--forest);color:var(--cream);box-shadow:0 8px 18px -10px rgba(10,51,35,.7)}
+.btn.primary:hover{background:#13472f}
+.btn.danger{border-color:var(--rose-ink);color:var(--rose-ink)}
+.btn.quiet{border-color:transparent;color:var(--moss-deep)}
+.btn.quiet:hover{background:rgba(131,153,88,.14)}
+.btn[disabled]{opacity:.35;cursor:not-allowed;box-shadow:none}
+.btn small{font-weight:500;font-size:12px;opacity:.85}
+.btn.hintbtn{border-color:var(--teal);color:var(--teal);animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 6px rgba(16,86,102,.12)}}
+:focus-visible{outline:2.5px solid var(--rose);outline-offset:3px}
+button,.tile,.opt,.flip{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{font-family:var(--f-body);font-size:15px;font-weight:700;background:var(--paper);border:1.5px solid var(--line);color:var(--ink-2);padding:8px 18px;border-radius:999px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--moss);border-color:var(--moss);color:var(--paper)}
+
+.sec{display:flex;flex-direction:column;gap:16px}
+.sec-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.sec-head h2{font-family:var(--f-script);font-weight:400;font-size:42px;color:var(--forest);line-height:1}
+.sec-head h2 em{font-style:normal;color:var(--rose-ink)}
+.sec-head .row{display:flex;gap:10px;flex-wrap:wrap}
+.notice{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:14px 18px;max-width:75ch}
+.notice p{margin:0}
+
+.decks{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px}
+.deck{background:var(--paper);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0;position:relative;overflow:hidden;transition:transform .2s}
+@media (hover:hover){.deck:hover{transform:translateY(-3px) rotate(-.3deg)}}
+.deck::after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:var(--matcha);opacity:.6;pointer-events:none}
+.deck.teacher::after{background:#F2DCD6}
+.deck .head{display:flex;gap:14px;align-items:flex-start;min-width:0;position:relative;z-index:1}
+.initial{flex:none;width:56px;height:56px;display:grid;place-items:center;background:var(--moss);color:var(--paper);font-family:var(--f-script);font-size:36px;line-height:1;border-radius:50%;box-shadow:inset 0 -4px 0 rgba(10,51,35,.15)}
+.deck.teacher .initial{background:var(--rose)}
+.deck h3{font-family:var(--f-display);font-weight:600;font-size:19px;line-height:1.2;overflow-wrap:anywhere;color:var(--forest)}
+.deck .from{display:inline-block;margin-top:6px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--paper);background:var(--rose);padding:2px 9px;border-radius:999px}
+.deck .from[style]{background:var(--matcha);color:var(--moss-deep)!important}
+.mix{font-size:13px;color:var(--ink-2);display:block;margin-top:4px}
+.counts{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums;position:relative;z-index:1}
+.counts b{font-family:var(--f-display);font-size:20px;color:var(--forest);margin-right:4px}
+.counts .due b{color:var(--rose-ink)} .counts .new b{color:var(--teal)}
+.deck .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:14px;border-top:1.5px dashed var(--line)}
+.deck .acts .btn.primary{flex:1 1 100%}
+.empty{background:rgba(255,253,242,.7);border:1.5px dashed var(--line-2);border-radius:24px;padding:26px;text-align:center;color:var(--ink-2)}
+.empty p{margin:0 auto;max-width:52ch}
+.prog-line{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.prog-line .bar{flex:1;min-width:60px}
+
+input.f,textarea.f,select.f{font-family:var(--f-body);font-size:16px;color:var(--ink);background:var(--paper);border:1.5px solid var(--line-2);border-radius:14px;padding:10px 12px;width:100%;resize:vertical}
+input.f::placeholder,textarea.f::placeholder{color:rgba(79,97,80,.55)}
+input.f:focus,textarea.f:focus,select.f:focus{border-color:var(--moss);outline:3px solid rgba(131,153,88,.25);outline-offset:0}
+label.fl,.fl{display:flex;flex-direction:column;gap:6px}
+.ed-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:24px;align-items:start}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0;box-shadow:var(--shadow)}
+.panel h3{font-family:var(--f-script);font-weight:400;font-size:32px;color:var(--forest)}
+.cardrow{display:grid;grid-template-columns:26px 112px minmax(0,1fr) minmax(0,1fr) 34px;gap:10px;align-items:start;padding:8px 0;border-bottom:1.5px dashed var(--line)}
+.colheads{display:grid;grid-template-columns:26px 112px minmax(0,1fr) minmax(0,1fr) 34px;gap:10px}
+.cardrow .num{font-family:var(--f-display);font-size:14px;color:var(--moss);padding-top:12px;text-align:right;font-variant-numeric:tabular-nums}
+.cardrow select.f{padding:10px 6px}
+.rownote{grid-column:3 / 5;font-size:13px;color:var(--rose-ink);margin:-4px 0 0}
+.x{background:none;border:0;color:var(--ink-2);font-size:22px;line-height:1;cursor:pointer;padding:8px 4px;border-radius:50%}
+.x:hover{color:var(--rose-ink)}
+.saved{font-size:13px;color:var(--ink-2);font-style:italic}
+
+.modebar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.modebar .ttl{flex:1;min-width:0}
+.modebar h2{font-family:var(--f-display);font-weight:600;font-size:clamp(20px,3.4vw,28px);overflow-wrap:anywhere;color:var(--forest)}
+.progress{height:8px;background:var(--matcha);border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--moss);border-radius:99px;transition:width .3s}
+.tally{display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--ink-2);margin-top:10px;font-variant-numeric:tabular-nums}
+.tally b{color:var(--forest)} .tally .n b{color:var(--teal)} .tally .r b{color:var(--rose-ink)}
+.lives{display:inline-flex;gap:4px;align-items:center;margin-left:auto}
+.heart{width:24px;height:22px;fill:var(--rose);stroke:var(--rose-ink);stroke-width:1;transition:fill .3s}
+.heart.lost{fill:transparent;stroke:rgba(156,84,71,.35)}
+.heart.drop{animation:drop .6s ease-out}
+.heart.gain{animation:gain .6s ease-out}
+@keyframes drop{0%{transform:scale(1.3)}40%{transform:translateY(-4px) rotate(-12deg)}100%{transform:none}}
+@keyframes gain{0%{transform:scale(.4)}60%{transform:scale(1.35)}100%{transform:none}}
+.lives.low .heart:not(.lost){animation:beat 1s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.18)}30%{transform:scale(1)}45%{transform:scale(1.12)}}
+
+.stage{display:flex;flex-direction:column;align-items:center;gap:22px}
+.leaf{width:100%;max-width:680px;min-height:290px;background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:30px;
+  padding:42px 32px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;position:relative}
+.leaf::before{content:"";position:absolute;inset:10px;border:1.5px dashed rgba(131,153,88,.35);border-radius:22px;pointer-events:none}
+.leaf .lbl{background:var(--matcha);padding:4px 12px;border-radius:999px}
+.leaf .q,.leaf .a{font-family:var(--f-display);font-size:clamp(26px,4.6vw,40px);font-weight:600;line-height:1.2;overflow-wrap:anywhere;text-wrap:balance;color:var(--forest)}
+.leaf .a{color:var(--rose-ink)}
+.leaf .q.long,.leaf .a.long{font-size:clamp(19px,3.2vw,26px);line-height:1.35}
+.fleuron{color:var(--rose);font-size:20px;letter-spacing:.6em;margin-right:-.6em}
+.answers{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;width:100%;max-width:680px}
+.answers .btn{flex:1 1 130px;flex-direction:column;gap:2px;padding:10px 12px;border-radius:20px}
+.g0{border-color:var(--rose-ink);color:var(--rose-ink)} .g1{border-color:var(--moss);color:var(--moss-deep)}
+.g2{border-color:var(--forest);color:var(--forest)} .g3{border-color:var(--teal);color:var(--teal)}
+.kbd{font-size:11px;opacity:.55;font-weight:500}
+.hint{font-style:italic;color:var(--teal);font-size:16px;margin:0;max-width:52ch}
+.hintbox{border-top:1.5px dashed rgba(16,86,102,.3);padding-top:12px;animation:fadein .4s}
+@keyframes fadein{from{opacity:0;transform:translateY(4px)}}
+
+.result{max-width:600px;width:100%;text-align:center;align-items:center}
+.result h3{font-family:var(--f-script);font-weight:400;font-size:48px;color:var(--forest)}
+.result .stats{display:flex;gap:28px;justify-content:center;flex-wrap:wrap}
+.result .stats div{display:flex;flex-direction:column}
+.result .stats b{font-family:var(--f-display);font-size:30px;color:var(--moss-deep);font-variant-numeric:tabular-nums;line-height:1.1}
+.result .stats span{font-size:13px;color:var(--ink-2)}
+.result .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.result.fallen h3{color:var(--rose-ink)}
+
+.flip-wrap{width:100%;max-width:680px;perspective:1400px;touch-action:pan-y;transition:transform .25s ease;position:relative}
+.flip{display:block;width:100%;min-height:310px;position:relative;border:0;padding:0;background:none;cursor:pointer;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.3,1.25,.5,1);font:inherit;color:inherit}
+.flip.is-flipped{transform:rotateY(180deg)}
+.flip .leaf{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;max-width:none}
+.flip .leaf.back{transform:rotateY(180deg);background:#F6EDE6}
+.flip-wrap[data-dir="yes"] .leaf{border-color:var(--moss);box-shadow:0 0 0 4px rgba(131,153,88,.3)}
+.flip-wrap[data-dir="no"] .leaf{border-color:var(--rose);box-shadow:0 0 0 4px rgba(211,150,140,.35)}
+.navrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+.navrow .pos{font-family:var(--f-display);font-size:18px;min-width:80px;text-align:center;font-variant-numeric:tabular-nums}
+.knowrow .btn{min-width:140px}
+.touch-only{display:none}
+
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;width:100%;max-width:680px}
+.opt{font-family:var(--f-body);font-size:17px;font-weight:600;text-align:left;cursor:pointer;background:var(--paper);color:var(--ink);border:1.5px solid var(--line);border-radius:20px;padding:14px 16px;display:flex;gap:12px;align-items:baseline;min-width:0;overflow-wrap:anywhere;transition:border-color .15s,opacity .3s,transform .1s}
+.opt:hover:not([disabled]){border-color:var(--moss)}
+.opt .n{font-family:var(--f-display);font-size:13px;color:var(--moss)}
+.opt.ok{border-color:var(--moss);background:var(--matcha)}
+.opt.bad{border-color:var(--rose);background:#F6E3DF;color:var(--rose-ink)}
+.opt.gone{opacity:.15;pointer-events:none}
+.opt[disabled]{cursor:default}
+
+.mtop{display:flex;gap:24px;justify-content:center;align-items:center;flex-wrap:wrap;font-size:14px;color:var(--ink-2)}
+.mtop b{font-family:var(--f-display);font-size:22px;color:var(--forest);font-variant-numeric:tabular-nums}
+.mtop .lives{margin-left:0}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;width:100%;max-width:860px}
+.tile{min-height:96px;padding:12px;background:var(--paper);color:var(--ink);border:1.5px solid var(--line);border-radius:20px;cursor:pointer;font-family:var(--f-body);font-size:16px;font-weight:600;line-height:1.25;overflow-wrap:anywhere;min-width:0;transition:transform .15s,opacity .3s}
+.tile:hover{border-color:var(--moss)}
+.tile.sel{border-color:var(--moss);background:var(--matcha);transform:translateY(-3px)}
+.tile.wrong{border-color:var(--rose);background:#F6E3DF;animation:shake .3s}
+.tile.gone{visibility:hidden}
+.tile:active,.opt:active{transform:scale(.97)}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+.gap{display:inline-block;min-width:3.2em;border-bottom:3px solid var(--rose);margin:0 .12em;transform:translateY(-.08em)}
+mark.ans{background:#F2DCD6;color:var(--rose-ink);padding:0 .2em;border-radius:6px}
+.typebox{display:flex;gap:10px;width:100%;max-width:680px;flex-wrap:wrap}
+.typebox input{flex:1 1 260px;font-size:19px;padding:12px 16px;border-radius:999px}
+.verdict{width:100%;max-width:680px;border-radius:20px;padding:12px 18px;border:1.5px solid var(--line);background:var(--paper);display:flex;flex-direction:column;gap:4px}
+.verdict b{font-family:var(--f-display);font-size:18px}
+.verdict.ok{border-color:var(--moss);background:#F1F4E1} .verdict.ok b{color:var(--moss-deep)}
+.verdict.typo{border-color:var(--moss)} .verdict.typo b{color:var(--moss-deep)}
+.verdict.bad{border-color:var(--rose);background:#FBF0EC} .verdict.bad b{color:var(--rose-ink)}
+.verdict .yours{font-size:14px;color:var(--ink-2)} .verdict .yours s{color:var(--rose-ink)}
+.tb{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 9px;border-radius:999px;background:var(--matcha);color:var(--moss-deep);white-space:nowrap}
+.tb.gap-t{background:#F2DCD6;color:var(--rose-ink)} .tb.trans-t{background:#D7E7EA;color:var(--teal)}
+.pill{font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;white-space:nowrap;background:var(--paper-2);color:var(--ink-2)}
+.pill.hard{background:var(--rose);color:var(--paper)} .pill.new{background:#D7E7EA;color:var(--teal)} .pill.master{background:var(--moss);color:var(--paper)}
+.tablewrap{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:20px}
+table.words{width:100%;border-collapse:collapse;font-size:15px;min-width:560px}
+table.words th{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--moss-deep);text-align:left;padding:12px;border-bottom:1.5px dashed var(--line-2)}
+table.words td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.words tr:last-child td{border-bottom:0}
+table.words td.num{color:var(--moss);font-family:var(--f-display);font-size:13px;font-variant-numeric:tabular-nums;width:1%}
+table.words tr.is-hard td:first-child{box-shadow:inset 3px 0 0 var(--rose)}
+table.words .hint{font-size:13px}
+.miss{font-size:12px;color:var(--rose-ink);display:block;margin-top:3px;font-variant-numeric:tabular-nums}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters .btn{padding:6px 14px;font-size:13px;min-height:36px;border-color:var(--line-2)}
+.filters .btn[aria-pressed="true"]{background:var(--moss);color:var(--paper);border-color:var(--moss)}
+.weakbox{background:#FBF0EC;border:1px solid rgba(211,150,140,.5);border-radius:24px;padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+.weakbox h3{font-family:var(--f-script);font-weight:400;font-size:34px;color:var(--rose-ink)}
+.weakbox .sec-head h3{line-height:1}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-size:14px;padding:4px 12px;border-radius:999px;background:var(--paper);border:1px solid rgba(211,150,140,.5)}
+.chip b{color:var(--rose-ink);font-weight:800;font-size:12px;margin-left:5px;font-variant-numeric:tabular-nums}
+
+/* поляна */
+.garden-card{display:flex;flex-direction:column;gap:12px}
+.meadow-mini{display:block;width:100%;padding:0;border:1px solid var(--line);border-radius:24px;overflow:hidden;cursor:pointer;background:none;box-shadow:var(--shadow)}
+.meadow-mini svg{display:block;width:100%;height:auto}
+.meadow-wrap{border-radius:28px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);background:#b5c47d}
+svg.meadow{display:block;width:100%;height:auto}
+.pl-sway{animation:sway 5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+.pl-grow{animation:grow 1.4s cubic-bezier(.3,1.5,.5,1) both;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes grow{0%{transform:scale(0)}100%{transform:scale(1)}}
+@keyframes sway{50%{transform:rotate(2.2deg)}}
+.garden-legend .chip b{color:var(--moss-deep)}
+.reward{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 18px 16px;border-radius:24px;background:var(--matcha);width:100%;max-width:420px}
+.reward p{margin:0;font-size:15px}
+.reward-plant{width:96px;height:118px;overflow:visible}
+.reward-plant .pl-grow{animation-delay:.35s}
+/* guide: Мила */
+#gslot:empty{display:none}
+.guide{display:flex;align-items:flex-end;gap:14px}
+.guide.mini{align-items:center;gap:12px}
+.gfig{background:var(--matcha);border:1px solid var(--line);padding:0;cursor:pointer;flex:none;overflow:hidden;position:relative}
+.guide.full .gfig{width:150px;height:210px;border-radius:75px 75px 22px 22px;box-shadow:var(--shadow)}
+.guide.full .gfig::before{content:"";position:absolute;inset:7px;border:1.5px solid rgba(255,253,242,.8);border-radius:68px 68px 16px 16px;pointer-events:none;z-index:1}
+.guide.mini .gfig{width:62px;height:62px;border-radius:50%}
+.mila{width:100%;height:100%;display:block}
+.guide.full .mila{animation:gfloat 4.5s ease-in-out infinite}
+@keyframes gfloat{50%{transform:translateY(-4px)}}
+.mila .eyes{transform-origin:60px 52px;animation:blink 5s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.mila .joy{display:none}
+.guide.happy .joy{display:inline}.guide.happy .eyes{display:none}
+.guide.happy .gfig{animation:hop .6s ease-out;background:#EEF2D6}
+.guide.happy .cup{transform:rotate(-12deg);transform-origin:56px 140px;transition:transform .3s}
+@keyframes hop{30%{transform:translateY(-8px)}}
+.guide.sad .mouth{transform:scaleY(-1);transform-origin:60px 62px}
+.guide.sad .gfig{background:#F2DCD6}
+.bubble{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:14px 18px;flex:1;min-width:0;max-width:680px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow)}
+.bubble::before{content:"";position:absolute;left:-7px;bottom:28px;width:14px;height:14px;background:var(--paper);border-left:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg)}
+.guide.mini .bubble::before{bottom:auto;top:calc(50% - 7px)}
+.gname{font-family:var(--f-script);font-size:22px;color:var(--rose-ink);line-height:1}
+.gsay{margin:0;display:grid;font-size:16px;line-height:1.5}
+.gsay>span{grid-area:1/1}
+.gsay .sizer{visibility:hidden}
+.guide.full .gsay{font-size:clamp(16px,2vw,18px)}
+.guide.full .bubble{margin-bottom:26px}
+.bubble .row{display:flex;gap:8px;flex-wrap:wrap}
+.bubble .hintbtn{align-self:flex-start}
+
+/* fx */
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:45;pointer-events:none}
+#flash{position:fixed;inset:0;z-index:44;pointer-events:none;opacity:0}
+#flash.hurt{background:radial-gradient(ellipse at center,transparent 50%,rgba(211,150,140,.45));animation:flash .55s ease-out}
+#flash.fallen{background:radial-gradient(ellipse at center,rgba(211,150,140,.15),rgba(211,150,140,.5));animation:flash 1.5s ease-out}
+@keyframes flash{0%{opacity:1}100%{opacity:0}}
+.floater{position:fixed;z-index:46;pointer-events:none;font-family:var(--f-display);font-weight:800;font-size:26px;color:var(--moss-deep);
+  text-shadow:0 2px 0 var(--paper),0 0 12px rgba(255,253,242,.9);animation:floatup 1.25s ease-out forwards;transform:translate(-50%,-50%)}
+@keyframes floatup{0%{opacity:0;transform:translate(-50%,-30%) scale(.7)}15%{opacity:1;transform:translate(-50%,-70%) scale(1.15)}100%{opacity:0;transform:translate(-50%,-240%) scale(1)}}
+.leaf.glow-ok,.opt.ok{animation:glowok .9s ease-out}
+@keyframes glowok{0%{box-shadow:0 0 0 0 rgba(131,153,88,.6),var(--shadow)}100%{box-shadow:0 0 0 24px rgba(131,153,88,0),var(--shadow)}}
+.leaf.hit{animation:hit .45s}
+@keyframes hit{0%{border-color:var(--rose)}20%{transform:translateX(-9px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}100%{transform:none}}
+.reveal{animation:reveal .55s ease-out}
+@keyframes reveal{from{opacity:0;transform:translateY(10px) scale(.96);filter:blur(5px)}}
+#app.enter{animation:enter .45s ease-out}
+@keyframes enter{from{opacity:0;transform:translateY(12px)}}
+
+#modal{position:fixed;inset:0;z-index:50;background:rgba(10,51,35,.35);display:flex;align-items:center;justify-content:center;
+  padding:max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px))}
+#modal .box{width:100%;max-width:520px;max-height:90vh;overflow:auto}
+#modal h3{font-family:var(--f-script);font-weight:400;font-size:34px;color:var(--forest)}
+#modal .row{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+#toasts{position:fixed;right:calc(16px + env(safe-area-inset-right, 0px));bottom:calc(16px + env(safe-area-inset-bottom, 0px));z-index:60;display:flex;flex-direction:column;gap:8px;align-items:flex-end;pointer-events:none}
+.toast{background:var(--forest);color:var(--cream);font-size:14px;font-weight:600;padding:9px 16px;border-radius:999px;box-shadow:var(--shadow);animation:pop 2.4s forwards}
+@keyframes pop{0%{opacity:0;transform:translateY(8px)}10%,82%{opacity:1;transform:none}100%{opacity:0}}
+.loading{padding:60px 0;text-align:center;color:var(--ink-2);font-style:italic}
+footer.foot{font-size:13px;color:var(--ink-2);text-align:center}
+
+@media (hover:none){.kbd{display:none}.touch-only{display:inline}.btn:hover{background:transparent}.btn.primary:hover{background:var(--forest)}}
+@media (max-width:800px){.ed-grid{grid-template-columns:1fr}.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){
+  .wrap{gap:22px;padding-block:16px 40px}
+  header.top{gap:12px;padding-bottom:14px}
+  .brand .seal{width:42px;height:42px}
+  .player{width:100%;justify-content:space-between;gap:10px;padding:6px 6px 6px 14px;border-radius:22px}
+  .player .role{display:none}
+  .rank{min-width:0;flex:1}
+  .sec-head h2{font-size:34px}
+  .opts{grid-template-columns:1fr}.tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .tile{min-height:68px;font-size:15px;padding:8px}
+  .cardrow{grid-template-columns:minmax(0,1fr) 34px}.cardrow .num,.colheads{display:none}
+  .cardrow textarea{grid-column:1 / -1}.rownote{grid-column:1 / -1}
+  .decks{grid-template-columns:1fr}
+  .modebar{gap:6px}
+  .tally{gap:12px}
+  .heart{width:21px;height:19px}
+  .stage{gap:16px}
+  .leaf{min-height:210px;padding:30px 18px;border-radius:26px}
+  .leaf .q,.leaf .a{font-size:clamp(23px,7vw,30px)}
+  .leaf .q.long,.leaf .a.long{font-size:clamp(18px,5vw,22px)}
+  .flip{min-height:250px}
+  .answers{position:sticky;bottom:0;z-index:6;gap:8px;padding:12px 0 calc(12px + env(safe-area-inset-bottom, 0px));background:linear-gradient(180deg,rgba(247,244,213,0),var(--cream) 30%)}
+  .answers .btn{flex:1 1 0;min-width:0;min-height:52px;padding:8px 4px;font-size:13px}
+  .answers .btn small{font-size:11px}
+  .typebox input{flex-basis:100%}.typebox .btn{width:100%;min-height:48px}
+  .opt{padding:12px 14px;font-size:16px;min-height:52px}
+  .knowrow{width:100%}.knowrow .btn{min-width:0;flex:1 1 0;min-height:52px;white-space:nowrap}
+  .deck{padding:16px}
+  .deck .acts .btn{flex:1 1 auto;min-height:44px}
+  .filters{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}
+  .filters .btn{flex:none}
+  .result h3{font-size:40px}
+  #toasts{top:calc(10px + env(safe-area-inset-top, 0px));bottom:auto;left:max(16px, env(safe-area-inset-left, 0px));right:max(16px, env(safe-area-inset-right, 0px));align-items:center}
+  .guide{gap:10px}
+  .guide.full .gfig{width:100px;height:140px;border-radius:50px 50px 18px 18px}
+  .guide.full .gfig::before{border-radius:44px 44px 12px 12px;inset:5px}
+  .guide.mini .gfig{width:50px;height:50px}
+  .gsay,.guide.full .gsay{font-size:15px}
+  .bubble{padding:10px 14px}
+  .guide.full .bubble{margin-bottom:14px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.motes{display:none}}
+</style>
+
+<script>window.BGIMG="data:image/jpeg;base64,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ZYl/reo09yi+DUM846Pjyw/+046x6x0x/wD8a5SV6pL77777674Kb6Z4JL5r4IJLb7765YIIIL6RCxzzzzzwzzz6hyJZFIIMOPu7G3H8V70OsMNMPdMOskt//wDIwqKCC++++++++6C+++qOeW++C+OC+yCwCGe6CiAA8888888oQUSiCLxSHLCCmZj/ANPtRNM9/wCsMMdtMNOuPPtMJzoxzrR777775rIZLIIL7r6pB76I7wwJCJY44JABDzzzzzzxhQSz67IId/8ACDamL4Q2ntzy/nrDDDDfF9/P6CuG22O68pTMy2+6CyW8sKSyqOuG++CS+O+KmCk8+Us88wAAE08s0888++CZRp3DGwyT+L2JOO//AKwxQ4Qff4+wiEHqdVXb/wDUvi6oIBIAD4oYq776qLILb775AJ4JIJLTiggAQABzzzjF398Cxe/+s4SsceiejT5FMMMEkHntOMLilX20HscNN+PGIIBo75oILL7744JYIZL7LYoYKIIIADzwDABzzjRSwB338LSNf3+sjr3vZITj5MP/AP7/AO7a+yIO/Y0wzwwwzyx28UXLlsAAggvrvPLAADoogktvghigAFLPKAEPODOAPKPPXPvbn9v3v1FF19CAgh3/APcPePtv0kF30sNPsMd/+12MMOUgIDjgQz77zSAAKIoIIgY4IAAARzzzzxhzzzwzyRzy3230z2Cmg5FqpeMIB/8Azv8A/wD+v8wTziBzDAJLKLLJYwDwgSSSAADr77hAjywL4IIYKpwoQgRhATzyiwADzxxyygDT3zyibjf35yoMJYz/APLv/v8A/wAO/wDDHL3/AP7ywx4wxjrnivPKBBPPvMCHPFCHkAgogggAKLENAPPPMPKCPPNOPPPPPMPKEAPfOyxywjjK37//AP8A/wDwwx7/AMPffte9f88N/wC++6C8qAs80gAgQAU+KOQSCCCCAAUAcc8wAA080AcYg80888988888933frTS8z3/jH/8A6w7g+cxy0w687f51wwQQQgBPTPPKAIABPDPgkCEAABAAAIAAFOBHPPPnPPIBPPOAAGNPOAHKAQ0Qfy8Pgk00/wDv9IYu6b7o4b20cPf+kEEAQDyhDiAAwzzziADgACAAAAAQAQAAzShLjzzzDwBBwDRzzzjTzyg6EEM9X0zo788OMOJ/46Lr677v3W8sP0kWEADzzwADQDTzzywRiAICABzyzSyABDTygQDzzABgwTynzzjzzzjCCIAEDUzzCrLboIMMP/Q37DLbD330Wk3HwJFTzzzyQAABTyTyDQAAAABBwDzzwQARRCAIRAIATwTDV33jTzzzyx46ogDzzzwYCxYqJe/7kMYYKoJX2Hz3X/MIQDzjDCADzzoDBAAAACwwADzzzzzwBQAQAYQAIgDzCFFHckXvzwhz7zTShzyjxr/erbLb76IAkkIJsYc0xzlg4wAjyQBCATDzxwABygBDxzzzjDzyDywAAADBSgAADAF00vk8PdrzhbDzySz74DEMtf8AKUo+GiAADFCCCAw0gIBU8I40IAAAAAUs08owpDV9xwMIA88+gUAAE8EIAQ8IBTxn/wDd/wB/PEMOXzzzz76oCOsNPe11z4IAQIAowAAQEH8ACYBDyggAAABTziEAH3T3X3iEQhzzgAiwwwiARiBGE+Pdv+tfvf8ADTBR688OCCCMLDHnDB9u4QsIegswsAEIABgMMsc84AAAc880AAd99pdhBBB5BI0MEc088sAEMMVCNT/r3n7nDDDBFDz2oEGCC8Ac8sQgSqAQK2CO+McEcsAKAw0c8gUEIAQ++eAAV79ZhRBhBBB1Aw88s88wct89F/7/AMbcQRbzWQz4TfUAAshgjAlvvgggjjgABvvvPOOONDPIAPPPGMPDAIhvgAAdbXwQQQQSQQTQQGPPOPPPfPfSUQQAAKBABGPAFPIgAAAAAHvAEtkgkgmpgjHNPPAAAEANPFOFPOAPPOBHPsgAAQdeYQQYQQQRYQXcQVPPfSdRfYXPDPIJAAABAABIKAgAoKHdvAAvvggvvPivLAAAPCELKAMLHPOBBNPFOLACAABQfYQQQQZRRSaQVAMMPfPfDTfdfdfNDIAAAADEAODggDKHPffAgjrkhvvjvvqAAFPIgHCAAFDEIBAAAPPPAAEIAafQTRQRXfaYeQRNAUIdOd3ffbfEDNLPDAAAHEBNLHPPPPfe/AnvvrgtvvuvvKDMvCgPKAAEAICJHAAMMPEAAdfeYUQQXURffbSQQQAQQUAAIOffOccVfANvKLvLHEPfbcH+fbz7HvvvrvruqEJFPF3rHPKAPBBAAPPPPBBOAEAUfaQVffbfZXfffQQRfZQQQQQEf8aQRabbBNPIvPPPPOQb/wAH3PGL777b4Ja7yhBDTjBjjywgBzyzzzjTzRCAABT3WkH2H0mlV12n12EGMMnkFkEFEENEXlTzxzwz33TuklWkEHsHw76obbIbQLLzwhDTygBzywrzzyDSxSgQQAAFH130FEn0H2nX331H00ENOMGFGEGMe2sF3Xzzzzz2HGEAFCAc/wB8S+q++QCWKKSiGw888MMiQU898IAYAAMAF99t9xhBF1Bt9pBhxR5d9JDDTNxxtd99ttBBB91iC0IBBBBBAARhFBCSyyCCGCeqCOO4gAAw+gQQYs4AAAQABlp999pBBBdpV95dDDBBVJRxNN5dBB19zthV9JRxFBC09JBFBBAQhFNxCCCCqCAiUe++6AAA88AgMMMAcUsYABB195ZxFB9t5Fd95V9pBBBFxlBBxhRR19d9JF/tNLXoA089lUFBBBBhxBOeKO+CQ+8W4eCCA0c8sB888J99pt8pV5tlBBd5N9t9591ZVhBFpBFVZBBJDBB1rbhF9X//APwQINKRUVZQQQTQQeouvPLPvHPHGAkgnoPNLPNHYANKUYbffYQYQUQXeQffXbdcUQQQT3QQ1XcQQwwx6w016fv8SQQAQAVSbQfbSQTQghOPfvvvvNPkgghvPLNOPDfaHPPc8URQQQQTTdYfeTfYaQRUQVf5wQYUQYTTw37wQ40cdffScQcUcdffffeQcCAAMcMvutvvuCggjPBAFCAPPNPfIwAWZTfbffffbfRcQSQQaSRff/QaRQQRYb//AG0GEkENX3n2EX0EUHH33333woIIKAILL7oIIL7zjxwAQAAHF2HWEG00X3GHX333221GEEEEH/13sFEEd0MGVX/eEmUG0EkX120FElGH3333330IIIa4IIbKooAbzygCjT0jwgEEEEMHXV3321m33333kFUU1W3n00l03/8A/vLzv/pBBB99pFR1599Z9NJF975999EeiS+Ci+6AuM84BUBBBBBRlBJFBRBhRp99999999BBBB9/999/9vDV/fn7/bv35BVR19pBBBh1Vt919994E999OKCC+2Oeic0888RZhBP/AKbcYZXbbafffdaZfffXQVYVTXWdffUx/wDf30/8P/313300EEEEEEEXnGFX301X2XX30L6KIbZN/qFX/VEEF2338H0kUEFHX3mF133233kEEX13XE33213n39//APP9Vt//AMQfbebfXYwdSWSUQdffffUefYgg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";document.documentElement.style.setProperty("--bgimg",'url("'+window.BGIMG+'")');</script>
+</head>
+<body>
+<div class="motes" id="motes" aria-hidden="true"></div>
+<div class="wrap">
+  <header class="top" id="hdr"></header>
+  <main id="app" class="sec"><p class="loading">Поливаем сад слов…</p></main>
+  <footer class="foot" id="foot"></footer>
+</div>
+<div id="modal" hidden></div>
+<div id="toasts" aria-live="polite"></div>
+<div id="flash"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<script>
+const $=s=>document.querySelector(s);
+const DAY=864e5, LKEY='scriptorium-v2';
+const uid=()=>Math.random().toString(36).slice(2,10);
+const h=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a};
+const clone=o=>JSON.parse(JSON.stringify(o));
+const dstr=t=>{const d=new Date(t);return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()};
+const plural=(n,a,b,c)=>{const m=n%10,m2=n%100;return m===1&&m2!==11?a:m>=2&&m<=4&&(m2<10||m2>=20)?b:c};
+const ago=t=>{if(!t)return 'ещё не занимался';const d=Math.floor((Date.now()-t)/DAY);return d<=0?'занимался сегодня':d===1?'занимался вчера':`занимался ${d} ${plural(d,'день','дня','дней')} назад`};
+const mkCard=(f,b,t='word')=>({id:uid(),t,f,b});
+function toast(t){const el=document.createElement('div');el.className='toast';el.textContent=t;$('#toasts').appendChild(el);setTimeout(()=>el.remove(),2500);}
+
+/* ===================== типы карточек ===================== */
+const TYPES={word:'Слово',gap:'Пропуск',trans:'Перевод'};
+const tOf=c=>c.t||'word';
+const groups=f=>[...String(f||'').matchAll(/\[([^\]]+)\]/g)].map(m=>m[1]);
+const valid=c=>tOf(c)!=='gap'||groups(c.f).length>0;
+const isTyped=c=>(tOf(c)==='gap'&&groups(c.f).length>0)||(tOf(c)==='trans'&&String(c.b||'').trim()!=='');
+const firstAlt=g=>g.split('/')[0].trim();
+function frontHTML(c){return tOf(c)==='gap'?h(c.f).replace(/\[([^\]]+)\]/g,'<span class="gap"></span>'):h(c.f);}
+function fullHTML(c){
+  if(tOf(c)==='gap') return h(c.f).replace(/\[([^\]]+)\]/g,(m,g)=>`<mark class="ans">${g.split('/').map(x=>x.trim()).join(' / ')}</mark>`);
+  if(tOf(c)==='trans') return c.b.split('/').map(x=>h(x.trim())).join('<br><span class="hint">или</span> ');
+  return h(c.b);
+}
+const plainFront=c=>tOf(c)==='gap'?String(c.f).replace(/\[([^\]]+)\]/g,'___'):c.f;
+const answerText=c=>tOf(c)==='gap'?groups(c.f).map(firstAlt).join(' … '):tOf(c)==='trans'?firstAlt(c.b):c.b;
+const isLong=s=>String(s).length>38;
+function accepted(c){
+  if(tOf(c)==='gap'){let out=[''];for(const g of groups(c.f)){const alts=g.split('/').map(x=>x.trim());const nx=[];for(const o of out)for(const a of alts)nx.push((o+' '+a).trim());out=nx.slice(0,64);}return out;}
+  if(tOf(c)==='trans') return c.b.split('/');
+  return [c.b,...c.b.split(/[\/,;]/)];
+}
+function norm(s){
+  return String(s).toLowerCase().replace(/[’‘`´]/g,"'").replace(/ё/g,'е')
+    .replace(/\b(do|does|did|is|are|was|were|have|has|had|could|would|should|need)nt\b/g,"$1n't").replace(/\bdont\b/g,"don't").replace(/\bcant\b/g,"can't").replace(/\bwont\b/g,"won't").replace(/\bim\b/g,"i'm")
+    .replace(/\bcan't\b|\bcannot\b/g,'can not').replace(/\bwon't\b/g,'will not').replace(/n't\b/g,' not')
+    .replace(/'m\b/g,' am').replace(/'re\b/g,' are').replace(/'ve\b/g,' have').replace(/'ll\b/g,' will').replace(/'d\b/g,' would')
+    .replace(/\b(it|he|she|that|what|where|who|there|here|how)'s\b/g,'$1 is')
+    .replace(/[.,!?;:"«»()\-–—]/g,' ').replace(/\s+/g,' ').trim();
+}
+function lev(a,b){const m=a.length,n=b.length;if(!m)return n;if(!n)return m;let p=Array.from({length:n+1},(_,i)=>i);
+  for(let i=1;i<=m;i++){const q=[i];for(let j=1;j<=n;j++)q[j]=Math.min(p[j]+1,q[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=q;}return p[n];}
+function check(input,c){
+  const n=norm(input); if(!n) return 'bad';
+  const acc=accepted(c).map(norm).filter(Boolean);
+  if(acc.includes(n)) return 'ok';
+  const best=Math.min(...acc.map(a=>lev(n,a))); const tol=n.length>=12?2:n.length>=5?1:0;
+  return best<=tol?'typo':'bad';
+}
+
+/* ===================== эффекты: частицы ===================== */
+const FX=(()=>{
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cv,ctx,ps=[],run=false,dpr=1;
+  const small=()=>innerWidth<560;
+  function size(){dpr=Math.min(small()?1.5:2,devicePixelRatio||1);cv.width=innerWidth*dpr;cv.height=innerHeight*dpr;}
+  function loop(){
+    ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,innerWidth,innerHeight);
+    ctx.globalCompositeOperation='source-over';
+    ps=ps.filter(p=>p.life>0);
+    for(const p of ps){
+      p.life--;const k=p.life/p.max;
+      if(p.ring){p.r+=(p.R-p.r)*.14;ctx.strokeStyle=p.col;ctx.globalAlpha=k;ctx.lineWidth=2*k+.5;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.stroke();continue;}
+      p.vx*=p.drag;p.vy=p.vy*p.drag+p.g;p.x+=p.vx;p.y+=p.vy;
+      ctx.globalAlpha=Math.min(1,k*1.4);ctx.fillStyle=p.col;
+      if(p.shard){ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot+=p.vr);ctx.fillRect(-p.s,-p.s/3,p.s*2,p.s/1.5);ctx.restore();}
+      else{ctx.beginPath();ctx.arc(p.x,p.y,p.s*(.4+k*.6),0,7);ctx.fill();
+        if(p.trail){ctx.globalAlpha*=.35;ctx.beginPath();ctx.arc(p.x-p.vx*2,p.y-p.vy*2,p.s*.5,0,7);ctx.fill();}}
+    }
+    ctx.globalAlpha=1;
+    if(ps.length)requestAnimationFrame(loop);else{run=false;ctx.clearRect(0,0,innerWidth,innerHeight);}
+  }
+  function add(p){ps.push(p);if(!run){run=true;requestAnimationFrame(loop);}}
+  const api={
+    init(){cv=$('#fx');if(!cv)return;ctx=cv.getContext('2d');size();addEventListener('resize',size);},
+    burst(x,y,o={}){if(reduce||!ctx)return;const n=Math.round((o.n||24)*(small()?.6:1)),cols=o.colors||['#839958','#b5c77d'];
+      for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,v=(o.speed||5)*(.3+Math.random()*.9),life=(o.life||46)*(.6+Math.random()*.6);
+        add({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-(o.up||0),g:o.g??.12,drag:o.drag||.94,s:(o.size||2.4)*(.6+Math.random()*.8),col:cols[i%cols.length],life,max:life,
+          shard:!!o.shard,rot:Math.random()*6,vr:(Math.random()-.5)*.4,trail:!!o.trail});}},
+    ring(x,y,col='#839958',R=34){if(reduce||!ctx)return;add({ring:true,x,y,r:4,R,col,life:26,max:26});},
+    firework(x,y){api.ring(x,y,'#b5c77d',60);api.burst(x,y,{n:60,speed:7,g:.07,drag:.965,life:70,size:2,trail:true,colors:['#839958','#b5c77d','#105666','#e3b7ae','#D3968C']});},
+    fireworks(k=5){if(reduce)return;for(let i=0;i<k;i++)setTimeout(()=>api.firework(innerWidth*(.15+Math.random()*.7),innerHeight*(.12+Math.random()*.35)),i*260);},
+    float(text,x,y,color){const el=document.createElement('div');el.className='floater';el.textContent=text;el.style.left=x+'px';el.style.top=y+'px';if(color)el.style.color=color;document.body.appendChild(el);setTimeout(()=>el.remove(),1300);},
+    flash(kind){const el=$('#flash');if(!el)return;el.className='';void el.offsetWidth;el.className=kind;},
+  };
+  return api;
+})();
+function rectOf(el){if(typeof el==='string')el=document.querySelector(el);if(!el)return null;const r=el.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2,top:r.top,el};}
+function pulse(el,cls){if(typeof el==='string')el=document.querySelector(el);if(!el)return;el.classList.remove(cls);void el.offsetWidth;el.classList.add(cls);}
+const POST=[]; const afterRender=fn=>POST.push(fn);
+/* правильный и неправильный ответ */
+function cheer(xp,at){
+  SND.good();const r=at||rectOf('.leaf')||{x:innerWidth/2,y:innerHeight/2,top:innerHeight/2};
+  FX.ring(r.x,r.y,'#5f7a3c',90);FX.burst(r.x,r.y,{n:44,speed:6.5,colors:['#839958','#b5c77d','#5f7a3c','#D3968C'],up:1.5});
+  if(xp)FX.float('+'+xp,r.x,r.top+10);
+}
+function boo(at){
+  SND.bad();const r=at||rectOf('.leaf')||{x:innerWidth/2,y:innerHeight/2};
+  FX.burst(r.x,r.y,{n:26,speed:4.5,g:.22,shard:true,size:3,colors:['#c47a6e','#D3968C','#8a4a3f']});FX.flash('hurt');
+}
+
+/* ===================== звук ===================== */
+const SND={on:true,ctx:null,master:null,rev:null,
+  ac(){
+    if(!this.on)return null;
+    try{
+      if(!this.ctx){
+        const C=window.AudioContext||window.webkitAudioContext; if(!C) return null;
+        const c=this.ctx=new C();
+        const comp=c.createDynamicsCompressor();comp.threshold.value=-16;comp.knee.value=12;comp.ratio.value=3;comp.attack.value=.003;comp.release.value=.25;
+        this.master=c.createGain();this.master.gain.value=.85;this.master.connect(comp).connect(c.destination);
+        // мягкая искусственная реверберация
+        const len=Math.floor(c.sampleRate*2.2),ir=c.createBuffer(2,len,c.sampleRate);
+        for(let ch=0;ch<2;ch++){const d=ir.getChannelData(ch);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3.4)*(i<c.sampleRate*.012?i/(c.sampleRate*.012):1);}
+        const conv=c.createConvolver();conv.buffer=ir;const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=5200;
+        this.rev=c.createGain();this.rev.gain.value=.32;this.rev.connect(conv).connect(lp).connect(this.master);
+      }
+      if(this.ctx.state!=='running')this.ctx.resume();
+    }catch(e){return null;}
+    return this.ctx;
+  },
+  /* iOS и Android включают звук только после касания: «разогреваем» контекст тихим буфером */
+  unlock(){const c=this.ac();if(!c||this.unlocked)return;try{const b=c.createBuffer(1,1,22050),s=c.createBufferSource();s.buffer=b;s.connect(c.destination);s.start(0);this.unlocked=true;}catch(e){}},
+  out(node,wet){node.connect(this.master);if(wet){const g=this.ctx.createGain();g.gain.value=wet;node.connect(g).connect(this.rev);}},
+  env(p,t,a,peak,d){p.setValueAtTime(.0001,t);p.exponentialRampToValueAtTime(Math.max(.0002,peak),t+a);p.exponentialRampToValueAtTime(.0001,t+a+d);},
+  /* колокольчик: несколько негармоничных обертонов */
+  bell(f,at=0,vol=.1,dur=1.4,wet=.45){const c=this.ac();if(!c)return;const t=c.currentTime+at,bus=c.createGain();this.out(bus,wet);
+    [[1,1],[2.01,.55],[2.98,.3],[4.16,.18],[5.43,.1],[6.79,.05]].forEach(([m,a],i)=>{const o=c.createOscillator(),g=c.createGain();
+      o.type='sine';o.frequency.value=f*m;this.env(g.gain,t,.003,vol*a,dur/(1+i*.7));o.connect(g).connect(bus);o.start(t);o.stop(t+dur+.1);});},
+  /* щипок струны (арфа, лютня) — алгоритм Карплуса — Стронга */
+  pluck(f,at=0,vol=.2,dur=1.1,wet=.3,bright=.5){const c=this.ac();if(!c)return;const sr=c.sampleRate,n=Math.floor(sr*dur),N=Math.max(2,Math.round(sr/f));
+    const b=c.createBuffer(1,n,sr),d=b.getChannelData(0),ring=new Float32Array(N);
+    for(let i=0;i<N;i++)ring[i]=Math.random()*2-1;
+    let idx=0;const decay=.994+bright*.004;
+    for(let i=0;i<n;i++){const nx=(idx+1)%N,v=ring[idx];ring[idx]=decay*(v*(.5+bright*.2)+ring[nx]*(.5-bright*.2));d[i]=v;idx=nx;}
+    const s=c.createBufferSource(),g=c.createGain(),lp=c.createBiquadFilter();s.buffer=b;lp.type='lowpass';lp.frequency.value=Math.min(9000,f*8);
+    const t=c.currentTime+at;g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    s.connect(lp).connect(g);this.out(g,wet);s.start(t);},
+  /* медный духовой для фанфар */
+  brass(f,at=0,dur=.5,vol=.08,wet=.35){const c=this.ac();if(!c)return;const t=c.currentTime+at,g=c.createGain(),lp=c.createBiquadFilter();
+    lp.type='lowpass';lp.Q.value=2;lp.frequency.setValueAtTime(300,t);lp.frequency.exponentialRampToValueAtTime(2600,t+.06);lp.frequency.exponentialRampToValueAtTime(1100,t+dur);
+    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.05);g.gain.setValueAtTime(vol*.8,t+dur*.7);g.gain.exponentialRampToValueAtTime(.0001,t+dur+.15);
+    [0,6,-5].forEach(dt=>{const o=c.createOscillator();o.type='sawtooth';o.frequency.value=f;o.detune.value=dt;o.connect(lp);o.start(t);o.stop(t+dur+.2);});
+    lp.connect(g);this.out(g,wet);},
+  noise(dur=.2,f0=2000,f1=800,vol=.08,q=.8,type='bandpass',wet=.1,at=0){const c=this.ac();if(!c)return;const sr=c.sampleRate,b=c.createBuffer(1,Math.floor(sr*dur),sr),d=b.getChannelData(0);
+    for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1);
+    const s=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain(),t=c.currentTime+at;s.buffer=b;f.type=type;f.Q.value=q;
+    f.frequency.setValueAtTime(f0,t);f.frequency.exponentialRampToValueAtTime(f1,t+dur);
+    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+dur*.15);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    s.connect(f).connect(g);this.out(g,wet);s.start(t);},
+  drum(at=0,vol=.35,f0=140,f1=42){const c=this.ac();if(!c)return;const t=c.currentTime+at,o=c.createOscillator(),g=c.createGain();
+    o.type='sine';o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f1,t+.3);this.env(g.gain,t,.004,vol,.4);o.connect(g);this.out(g,.25);o.start(t);o.stop(t+.5);
+    this.noise(.08,900,300,vol*.25,1,'lowpass',.1,at);},
+  buzz(p){try{navigator.vibrate&&navigator.vibrate(p);}catch(e){}},
+
+  tick(){const c=this.ac();if(!c)return;const t=c.currentTime,o=c.createOscillator(),g=c.createGain();o.type='triangle';o.frequency.setValueAtTime(2200,t);o.frequency.exponentialRampToValueAtTime(900,t+.03);
+    this.env(g.gain,t,.002,.05,.04);o.connect(g);this.out(g,0);o.start(t);o.stop(t+.08);},
+  select(){this.pluck(880,0,.14,.6,.25,.7);},
+  flip(){this.noise(.24,3400,700,.13,.6,'bandpass',.08);this.noise(.06,7000,5000,.03,.7,'highpass',0,.02);},
+  good(){[523.25,659.25,783.99].forEach((f,i)=>this.pluck(f,i*.055,.17,1.2,.3,.6));this.bell(1046.5,.16,.06,1.6);this.buzz(12);},
+  bad(){this.drum(0,.32);this.pluck(196,.03,.14,.7,.2,.2);this.pluck(207.65,.1,.11,.7,.2,.2);this.buzz([35,40,35]);},
+  hurt(){this.noise(.3,1400,180,.12,1.4,'bandpass',.15);this.drum(0,.18,110,38);},
+  heal(){this.bell(987.77,0,.05,1.3);this.bell(1318.5,.08,.045,1.4);this.noise(.5,6000,9000,.012,1,'highpass',.4);},
+  hint(){this.bell(1567.98,0,.045,1.2);this.bell(2093,.07,.035,1.2);this.bell(2637,.14,.025,1.2);},
+  win(){[523.25,659.25,783.99,1046.5,1318.5].forEach((f,i)=>this.pluck(f,i*.09,.16,1.4,.35,.6));[1567.98,2093].forEach((f,i)=>this.bell(f,.52+i*.12,.04,1.8));this.buzz([20,60,20]);},
+  level(){[523.25,659.25,783.99,1046.5,1318.5,1567.98].forEach((f,i)=>this.bell(f,i*.075,.06,1.8));},
+  defeat(){this.bell(130.81,0,.16,3);this.bell(97.99,.7,.14,3.4);[392,349.23,311.13,261.63].forEach((f,i)=>this.pluck(f,.2+i*.22,.12,1.2,.35,.3));this.buzz([80,60,120]);},
+};
+try{SND.on=localStorage.getItem('scriptorium-sound')!=='off';}catch(e){}
+
+/* ===================== состояние ===================== */
+const ST={garden:{plants:[],seenT:0},settings:{role:'student',name:''},reports:[],ready:false,db:null,user:null,myId:null,isTeacher:false,remote:false,privOk:true,rosterOk:true,
+  myDecks:[],stats:{xp:0,streak:0,lastDay:null},srs:{},
+  assigned:[],myRoster:null,
+  students:[],selStu:null,stuDecks:[],unsubStu:null,tab:'students'};
+let V={name:'home'}, timer=null;
+
+let LOCAL={}; try{LOCAL=JSON.parse(localStorage.getItem(LKEY)||'{}')||{}}catch(e){LOCAL={}}
+function saveLocal(){try{localStorage.setItem(LKEY,JSON.stringify(LOCAL))}catch(e){}}
+
+const Q={};
+function queueSet(path,getData,delay=700,onErr){
+  const p=Q[path]||(Q[path]={}); p.get=getData; p.onErr=onErr; clearTimeout(p.t);
+  p.t=setTimeout(()=>flush(path),delay);
+}
+async function flush(path){
+  const p=Q[path]; if(p.running){p.again=true;return;}
+  p.running=true;
+  try{await ST.db.doc(path).set(p.get());}
+  catch(e){ if(e&&e.code==='unavailable'){setTimeout(()=>flush(path),1500+Math.random()*1000);} else p.onErr&&p.onErr(e); }
+  p.running=false; if(p.again){p.again=false;flush(path);}
+}
+const priv=n=>`data/users/${ST.myId}/${n}`;
+function savePriv(name,getData,delay){
+  LOCAL[name]=getData(); saveLocal();
+  if(ST.remote&&ST.privOk) queueSet(priv(name),getData,delay,()=>{ST.privOk=false;});
+}
+async function loadPriv(name){
+  if(ST.remote){try{const s=await ST.db.doc(priv(name)).get(); if(s.exists) return clone(s.data());}catch(e){}}
+  return LOCAL[name]?clone(LOCAL[name]):null;
+}
+const saveMine=()=>savePriv('mine',()=>({decks:ST.myDecks}),600);
+const saveSrs=()=>savePriv('srs',()=>({decks:ST.srs}),1200);
+const saveStats=()=>savePriv('stats',()=>ST.stats,1200);
+
+/* ===================== уровни ===================== */
+const RANKS=['Семечко','Росток','Листок','Бутон','Цветок','Пион','Цветущий сад','Оранжерея'];
+const level=xp=>Math.floor(Math.sqrt(xp/50))+1;
+const rankOf=L=>RANKS[Math.min(L-1,RANKS.length-1)];
+function addXP(n){
+  const before=level(ST.stats.xp); ST.stats.xp+=n;
+  const d=dstr(Date.now()); if(ST.stats.lastDay!==d){ST.stats.streak=(ST.stats.lastDay===dstr(Date.now()-DAY)?ST.stats.streak:0)+1;ST.stats.lastDay=d;}
+  if(level(ST.stats.xp)>before){toast(`Новое звание: ${rankOf(level(ST.stats.xp))}`);setTimeout(()=>{const r=rectOf('.rank');SND.level();if(r){FX.firework(r.x,r.y);}FX.fireworks(3);},60);}
+  saveStats(); renderHeader();
+}
+const SEAL=`<svg class="seal" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="#839958"/><path d="M24 37 C12 30 13 17 24 10 C35 17 36 30 24 37 Z" fill="#F7F4D5"/><path d="M24 37 V17 M24 27 L18 21 M24 31 L30 24" stroke="#839958" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="36" cy="12" r="5" fill="#D3968C"/></svg>`;
+function renderHeader(){
+  const xp=ST.stats.xp, L=level(xp), lo=50*(L-1)**2, hi=50*L**2;
+  const streak=(ST.stats.lastDay===dstr(Date.now())||ST.stats.lastDay===dstr(Date.now()-DAY))?ST.stats.streak:0;
+  $('#hdr').innerHTML=`
+    <div class="brand">${SEAL}<div><h1>Сад <b>слов</b></h1><p>english · по чуть-чуть каждый день</p></div></div>
+    <div class="player">
+      ${ST.ready?`<button class="role" data-act="settings" title="Сменить роль" style="background:none;cursor:pointer">${ST.isTeacher?'учитель':'ученик'}</button>`:''}
+      <div class="rank"><span class="t">${rankOf(L)}</span><div class="bar" title="${xp-lo} из ${hi-lo}"><i style="width:${Math.round((xp-lo)/(hi-lo)*100)}%"></i></div><span class="s">${xp} опыта · до звания ${hi-xp}</span></div>
+      <button class="sndbtn" data-act="settings" aria-label="Настройки" title="Настройки"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+      <button class="sndbtn" data-act="sound" aria-pressed="${SND.on}" aria-label="Звук" title="${SND.on?'Выключить звук':'Включить звук'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/>${SND.on?'<path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>':'<path d="M17 9l5 6M22 9l-5 6"/>'}</svg></button>
+      <div class="streak"><b>${streak}</b><span>${plural(streak,'день','дня','дней')}<br>подряд</span></div>
+    </div>`;
+}
+
+/* ===================== повторение и трудные слова ===================== */
+const NEW={ease:2.5,ivl:0,reps:0,due:0,n:true};
+const srsOf=key=>ST.srs[key]||(ST.srs[key]={});
+const sched=(key,cid)=>srsOf(key)[cid]||NEW;
+function schedule(c,g){
+  let {ease,ivl,reps}=c, due; const now=Date.now();
+  if(g===0){reps=0;ease=Math.max(1.3,ease-0.2);ivl=0;due=now+60e3;}
+  else{
+    if(g===1){ivl=reps===0?1:Math.max(1,Math.round(ivl*1.2));ease=Math.max(1.3,ease-0.15);}
+    else if(g===2){ivl=reps===0?1:reps===1?3:Math.round(ivl*ease);}
+    else{ivl=reps===0?3:reps===1?5:Math.round(ivl*ease*1.3);ease+=0.15;}
+    ivl=Math.max(1,ivl);reps++;due=now+ivl*DAY;
+  }
+  return {ease:+ease.toFixed(2),ivl,reps,due,n:false};
+}
+/* «даётся плохо»: была ошибка, и после неё ещё нет трёх верных ответов подряд */
+const isWeak=s=>(s.miss||0)>0&&(s.run||0)<3;
+function mark(key,cid,ok){
+  const m=srsOf(key); const s={...NEW,...(m[cid]||{})};
+  if(ok){s.hit=(s.hit||0)+1;s.run=(s.run||0)+1;} else {s.miss=(s.miss||0)+1;s.run=0;s.lastMiss=Date.now();}
+  m[cid]=s; saveSrs();
+  const dk=getDeck(key); if(dk) reportProgress(dk);
+}
+const MAXL=5;
+const HEART='<path d="M12 21s-8.5-5.4-10.4-11A5.6 5.6 0 0 1 12 4.6 5.6 5.6 0 0 1 22.4 10C20.5 15.6 12 21 12 21z"/>';
+function livesHTML(){let s='';for(let i=0;i<MAXL;i++){const anim=V.fx&&V.fx.i===i?V.fx.t:'';s+=`<svg class="heart ${i<V.lives?'':'lost'} ${anim}" viewBox="0 0 24 22" aria-hidden="true">${HEART}</svg>`;}
+  V.fx=null;return `<span class="lives ${V.lives<=2?'low':''}" role="img" aria-label="Жизни: ${V.lives} из ${MAXL}">${s}</span>`;}
+function loseLife(){if(V.lives>0){V.lives--;V.fx={i:V.lives,t:'drop'};}V.run=0;}
+function gainRun(){V.run=(V.run||0)+1;if(V.run%4===0&&V.lives<MAXL){V.fx={i:V.lives,t:'gain'};V.lives++;toast('Четыре верных ответа подряд: +1 жизнь');}}
+const lifeState=()=>({lives:MAXL,run:0,hint:false,over:false,gone:[]});
+const hintBtn=()=>'';
+function hintFor(c){
+  const t=tOf(c); const start=a=>`начинается на «${h(a.charAt(0))}», букв: ${a.replace(/[\s'’]/g,'').length}`;
+  if(t==='gap'){const a=firstAlt(groups(c.f)[0]||'');return (c.b?`${h(c.b)}; `:'')+start(a).replace(/^н/,c.b?'н':'Н');}
+  if(t==='trans'){const w=firstAlt(c.b).split(/\s+/);return `Перевод начинается так: «${h(w.slice(0,Math.max(1,Math.min(2,w.length-1))).join(' '))} …»`;}
+  const a=firstAlt(String(c.b).split(/[,;]/)[0]);return 'Ответ '+start(a);
+}
+const hintArea=c=>V.hint?`<div class="hintbox"><p class="hint">${hintFor(c)}</p></div>`:'';
+function fallen(mode,title){
+  return `${modebar(mode,title)}<div class="stage"><div class="leaf result fallen"><span class="lbl">жизни закончились</span><h3>Нужна передышка</h3>
+    <p class="muted">Ответы до этого момента сохранены. Сделайте паузу и попробуйте снова.</p>
+    <div class="stats"><div><b>${V.done||V.score||0}</b><span>${V.name==='quiz'?'верных':'ответов'}</span></div><div><b>+${V.xp||0}</b><span>опыта</span></div></div>
+    <div class="row"><button class="btn primary" data-act="revive">Ещё попытка · ${MAXL} жизней</button><button class="btn quiet" data-act="home">На главную</button></div></div></div>`;
+}
+const fmtIvl=d=>d<=0?'1 мин':d<30?`${d} ${plural(d,'день','дня','дней')}`:d<365?`${Math.round(d/30)} мес.`:`${(d/365).toFixed(1)} г.`;
+function deckStats(dk){
+  const now=Date.now();let due=0,nw=0,learned=0,mastered=0,weak=0;
+  dk.cards.filter(valid).forEach(c=>{const s=sched(dk.key,c.id);if(isWeak(s))weak++;if(s.n)nw++;else{learned++;if(s.due<=now)due++;if(s.ivl>=21)mastered++;}});
+  return {due,nw,learned,mastered,weak,all:dk.cards.filter(valid).length};
+}
+function statusOf(key,c){
+  const s=sched(key,c.id);
+  if(isWeak(s)) return {cls:'hard',t:'даётся плохо',miss:s.miss};
+  if(s.n) return {cls:'new',t:'новое'};
+  if(s.ivl>=21) return {cls:'master',t:'закреплено'};
+  return {cls:'',t:'изучается'};
+}
+function mixLine(cards){
+  const n={word:0,gap:0,trans:0}; cards.forEach(c=>n[tOf(c)]++);
+  return [n.word&&`${n.word} ${plural(n.word,'слово','слова','слов')}`,n.gap&&`${n.gap} ${plural(n.gap,'пропуск','пропуска','пропусков')}`,n.trans&&`${n.trans} ${plural(n.trans,'перевод','перевода','переводов')}`].filter(Boolean).join(' · ');
+}
+
+/* ===================== колоды ===================== */
+function getDeck(key){
+  const [src,a,b]=key.split(':');
+  if(src==='m'){const d=ST.myDecks.find(x=>x.id===a);return d&&{...d,key,source:'mine',editable:true,studiable:true};}
+  if(src==='a'){const d=ST.assigned.find(x=>x.id===a);return d&&{...d,cards:d.cards||[],key,source:'teacher',editable:false,studiable:true};}
+  if(src==='t'){const d=ST.stuDecks.find(x=>x.id===b);return d&&{...d,cards:d.cards||[],key,sid:a,source:'pupil',editable:true,studiable:false};}
+}
+const studiableDecks=()=>[...ST.assigned.map(d=>getDeck('a:'+d.id)),...ST.myDecks.map(d=>getDeck('m:'+d.id))].filter(Boolean);
+function allWeak(){
+  const out=[]; studiableDecks().forEach(dk=>dk.cards.filter(valid).forEach(c=>{const s=sched(dk.key,c.id);if(isWeak(s))out.push({key:dk.key,deck:dk.name,c,s});}));
+  return out.sort((a,b)=>(b.s.miss||0)-(a.s.miss||0)||(b.s.lastMiss||0)-(a.s.lastMiss||0));
+}
+function sampleDecks(){
+  const mk=(name,pairs,t)=>({id:uid(),name,sample:true,cards:pairs.map(p=>mkCard(p[0],p[1]||'',t))});
+  return [
+    mk('Healthy habits: слова',[['hydrate','пить достаточно воды'],['routine','распорядок дня'],['stretch','растяжка; тянуться'],['snack','перекус'],['nap','короткий дневной сон'],
+      ['skincare','уход за кожей'],['journal','дневник; вести дневник'],['mindful','осознанный'],['balance','баланс'],['wellbeing','благополучие'],['screen time','время у экрана'],['treat yourself','побаловать себя']],'word'),
+    mk('Small changes: Present Simple',[['She [drinks] green tea every morning.','drink'],['I [go] to bed before eleven.','go'],['He [doesn\'t/does not] eat fast food.','отрицание'],
+      ['[Do] you walk to work?','вопрос'],['My sister [does] yoga on Sundays.','do'],['We [don\'t/do not] check our phones at dinner.','отрицание'],
+      ['[Does] he drink enough water?','вопрос, 3-е лицо'],['They usually [cook] at home.','cook']],'gap'),
+    mk('Self-care: перевод фраз',[['Я пью стакан воды каждое утро.','I drink a glass of water every morning. / Every morning I drink a glass of water.'],
+      ['Мне нужен перерыв.','I need a break.'],['Она ложится спать рано.','She goes to bed early.'],
+      ['Мы гуляем в парке по выходным.','We walk in the park at the weekend. / We walk in the park on weekends. / We go for a walk in the park at weekends.'],
+      ['Я стараюсь меньше сидеть в телефоне.','I try to spend less time on my phone. / I try to use my phone less.'],
+      ['Маленькие изменения имеют значение.','Small changes matter.']],'trans'),
+  ];
+}
+
+/* ===================== запуск ===================== */
+async function boot(){
+  renderHeader();
+  ST.remote=false;
+  const [mine,srs,stats,asg,set,reps,gdn]=await Promise.all(['mine','srs','stats','assigned','settings','reports','garden'].map(loadPriv));
+  ST.garden=gdn&&Array.isArray(gdn.plants)?gdn:{plants:[],seenT:0};
+  ST.myDecks=mine?mine.decks:[]; ST.srs=srs?srs.decks||{}:{}; if(stats) ST.stats=stats;
+  ST.assigned=asg?asg.decks||[]:[]; ST.settings=set||{role:'student',name:''}; ST.reports=reps?reps.list||[]:[];
+  ST.isTeacher=ST.settings.role==='teacher'; ST.tab=ST.reports.length?'students':'mine';
+  if((ST.stats.v||0)<3){ST.myDecks=[...sampleDecks(),...ST.myDecks.filter(d=>!d.sample)];ST.stats.v=3;saveMine();saveStats();}
+  ST.ready=true;
+  $('#foot').textContent='Колоды и прогресс хранятся в этом браузере. Резервную копию можно сохранить в настройках.';
+  renderHeader(); render(); handleHash();
+}
+function pushRoster(delay=2500){
+  if(!ST.remote||ST.isTeacher||!ST.rosterOk||!ST.myRoster) return;
+  queueSet('students/'+ST.myId,()=>ST.myRoster,delay,()=>{ST.rosterOk=false;});
+}
+function reportProgress(dk){
+  if(!dk||dk.source!=='teacher'||!ST.myRoster) return;
+  const s=deckStats(dk);
+  const weak=dk.cards.map(c=>({id:c.id,s:sched(dk.key,c.id)})).filter(x=>isWeak(x.s)).sort((a,b)=>b.s.miss-a.s.miss).slice(0,40).map(x=>({id:x.id,miss:x.s.miss}));
+  ST.myRoster.progress[dk.id]={total:s.all,learned:s.learned,mastered:s.mastered,weak,last:Date.now()};
+  ST.myRoster.lastSeen=Date.now(); ST.myRoster.xp=ST.stats.xp; pushRoster();
+}
+const sortedStudents=()=>ST.students.slice().sort((a,b)=>(a.addedAt||a.joinedAt||0)-(b.addedAt||b.joinedAt||0));
+function selectStudent(id,rerender=true){
+  if(ST.unsubStu){ST.unsubStu();ST.unsubStu=null;}
+  ST.selStu=id; ST.stuDecks=[];
+  if(id) ST.unsubStu=ST.db.collection('assigned/'+id+'/decks').onSnapshot(s=>{
+    ST.stuDecks=s.docs.map(d=>({id:d.id,...d.data()}));
+    if(V.name==='home'||V.name==='list') render();
+  },()=>{});
+  if(rerender) render();
+}
+async function fillPeople(){
+  if(!ST.user) return;
+  const els=[...document.querySelectorAll('[data-uid]')]; if(!els.length) return;
+  const ps=await ST.user.profiles([...new Set(els.map(e=>e.dataset.uid))]);
+  els.forEach(e=>{const p=ps[e.dataset.uid];if(!p)return;
+    if(e.tagName==='IMG') e.src=p.avatarUrl; else e.textContent=p.name||'Ученик без имени';});
+}
+
+/* ===================== отрисовка ===================== */
+function go(v){V=v; clearInterval(timer); render(); pulse('#app','enter'); window.scrollTo({top:0});}
+function render(){
+  if(!ST.ready) return;
+  const views={home:vHome,edit:vEdit,study:vStudy,flash:vFlash,quiz:vQuiz,match:vMatch,list:vList,weak:vWeak,garden:vGarden};
+  $('#app').innerHTML=(views[V.name]||vHome)();
+  renderGuide();
+  if(V.name==='match'&&!V.done&&!V.over) startTimer();
+  const ans=$('#ans'); if(ans) ans.focus({preventScroll:true});
+  const ended=(V.name==='study'&&V.total&&!V.queue.length)||(V.name==='quiz'&&V.i>=V.qs.length)||(V.name==='match'&&V.done);
+  if(ended&&!V.winFx){V.winFx=true;afterRender(()=>{FX.fireworks(V.name==='quiz'&&V.score/V.qs.length<.5?2:6);SND.win();});}
+  if(V.over&&!V.overFx){V.overFx=true;SND.defeat();FX.flash('fallen');}
+  const q=POST.splice(0);
+  requestAnimationFrame(()=>{q.forEach(f=>f());
+    const rw=$('.reward-plant'); if(rw&&!V.rewardFx){V.rewardFx=true;setTimeout(()=>{const r=rectOf(rw);if(!r)return;SND.heal();FX.ring(r.x,r.y,'#839958',60);FX.burst(r.x,r.y,{n:30,speed:4,g:.04,colors:['#839958','#b5c77d','#D3968C','#e8b84a']});},700);}
+    document.querySelectorAll('[data-fresh]').forEach((el,i)=>setTimeout(()=>{const r=rectOf(el);if(!r)return;FX.burst(r.x,r.y,{n:12,speed:3,g:.02,colors:['#b5c77d','#D3968C','#e8b84a']});if(i<6)SND.select();},500+i*90));
+    document.querySelectorAll('.heart.drop').forEach(el=>{const r=rectOf(el);SND.hurt();FX.burst(r.x,r.y,{n:16,speed:3.5,g:.25,shard:true,size:2.5,colors:['#c47a6e','#D3968C']});});
+    document.querySelectorAll('.heart.gain').forEach(el=>{const r=rectOf(el);SND.heal();FX.ring(r.x,r.y,'#D3968C',26);FX.burst(r.x,r.y,{n:18,speed:3,g:-.02,colors:['#e3b7ae','#c47a6e','#D3968C']});});
+  });
+  fillPeople();
+}
+const modebar=(mode,title)=>`<div class="modebar"><button class="btn quiet" data-act="home">← Назад</button><div class="ttl"><span class="lbl">${mode}</span><h2>${h(title)}</h2></div></div><div id="gslot"></div>`;
+
+function pupilWeak(sid,deckId){const st=ST.students.find(x=>x.id===sid);const p=st&&st.progress&&st.progress[deckId];return (p&&p.weak)||[];}
+function deckCard(dk){
+  const s=deckStats(dk); const init=(dk.name||'?').trim().charAt(0).toUpperCase()||'?';
+  const k=`data-key="${dk.key}"`; const words=dk.cards.filter(c=>tOf(c)==='word').length;
+  let acts='';
+  if(dk.studiable) acts=`<button class="btn primary" data-act="study" ${k} ${s.all?'':'disabled'}>Учить${s.due+Math.min(s.nw,20)?` · ${s.due+Math.min(s.nw,20)}`:''}</button>
+    <button class="btn" data-act="flash" ${k} ${s.all?'':'disabled'}>Карточки</button>
+    <button class="btn" data-act="quiz" ${k} ${s.all?'':'disabled'}>Тест</button>
+    <button class="btn" data-act="match" ${k} ${words>=3?'':'disabled'} title="${words>=3?'':'Нужно хотя бы 3 карточки-слова'}">Пары</button>
+    <button class="btn quiet" data-act="list" ${k}>Список</button>
+    ${dk.editable?`<button class="btn quiet" data-act="edit" ${k}>Изменить</button>`:''}${dk.source==='mine'?`<button class="btn quiet" data-act="share" ${k}>Поделиться</button>`:''}${dk.source==='teacher'?`<button class="btn quiet" data-act="rmasg" ${k}>Убрать</button>`:''}`;
+  else acts=`<button class="btn primary" data-act="edit" ${k}>Изменить задания</button>
+    <button class="btn" data-act="list" ${k} ${s.all?'':'disabled'}>Список и ошибки</button>
+    ${ST.students.length>1?`<button class="btn quiet" data-act="copyto" ${k}>Дать другому</button>`:''}`;
+  let meta;
+  if(dk.source==='pupil'){
+    const st=ST.students.find(x=>x.id===dk.sid); const p=st&&st.progress&&st.progress[dk.id];
+    const pct=p&&p.total?Math.round(p.learned/p.total*100):0; const wk=(p&&p.weak||[]).length;
+    meta=`<div class="prog-line"><span>Изучено ${p?p.learned:0} из ${s.all}</span><div class="bar"><i style="width:${Math.min(100,pct)}%"></i></div></div>
+      ${wk?`<div class="counts"><span class="due"><b>${wk}</b>даются плохо</span></div>`:''}
+      <span class="muted">${p?`Закреплено надолго: ${p.mastered} · ${ago(p.last)}`:'Ученик ещё не открывал эту колоду'}</span>`;
+  }else meta=s.all?`<div class="counts"><span class="due"><b>${s.due}</b>к повторению</span><span class="new"><b>${s.nw}</b>новых</span>${s.weak?`<span class="due"><b>${s.weak}</b>трудных</span>`:''}</div>`
+    :`<p class="muted">${dk.editable?'Колода пуста. Добавьте первые задания.':'Учитель ещё не добавил задания.'}</p>`;
+  return `<article class="deck ${dk.source==='teacher'?'teacher':''}">
+    <div class="head"><span class="initial">${h(init)}</span><div style="min-width:0"><h3>${h(dk.name)}</h3>
+      ${dk.source==='teacher'?'<span class="from">от учителя</span>':dk.sample?'<span class="from" style="color:var(--ivory-2)">пример</span>':''}
+      ${dk.cards.length?`<span class="mix">${mixLine(dk.cards)}</span>`:''}</div></div>
+    ${meta}<div class="acts">${acts}</div></article>`;
+}
+function weakBox(){
+  const w=allWeak(); if(!w.length) return '';
+  return `<section class="weakbox"><div class="sec-head"><h3>Даются плохо · ${w.length}</h3><div class="row">
+      <button class="btn primary" data-act="drill">Тренировать трудные</button><button class="btn quiet" data-act="weak">Весь список</button></div></div>
+    <div class="chips">${w.slice(0,10).map(x=>`<span class="chip">${h(plainFront(x.c))}<b>×${x.s.miss}</b></span>`).join('')}${w.length>10?`<span class="chip">ещё ${w.length-10}</span>`:''}</div>
+    <p class="muted">Слово уходит из этого списка после трёх верных ответов подряд.</p></section>`;
+}
+function mineSection(){
+  const decks=ST.myDecks.map(d=>deckCard(getDeck('m:'+d.id))).join('');
+  return `<section class="sec"><div class="sec-head"><h2>Мои колоды</h2><div class="row"><button class="btn primary" data-act="newmine">+ Новая колода</button></div></div>
+    ${decks?`<div class="decks">${decks}</div>`:`<div class="empty"><p>Здесь будут ваши собственные колоды. Создайте первую и добавьте слова, пропуски или предложения для перевода.</p></div>`}</section>`;
+}
+function vHome(){
+  if(ST.isTeacher){
+    const tabs=`<div class="tabs" role="tablist"><button class="tab" role="tab" aria-selected="${ST.tab==='students'}" data-act="tab" data-tab="students">Ученики${ST.reports.length?` · ${ST.reports.length}`:''}</button>
+      <button class="tab" role="tab" aria-selected="${ST.tab==='mine'}" data-act="tab" data-tab="mine">Мои колоды</button></div>`;
+    return '<div id="gslot"></div>'+tabs+(ST.tab==='mine'?weakBox()+gardenStrip()+mineSection():teacherSection());
+  }
+  const assigned=ST.assigned.slice().sort((a,b)=>(b.createdAt||0)-(a.createdAt||0)).map(d=>deckCard(getDeck('a:'+d.id))).join('');
+  let total=0; studiableDecks().forEach(dk=>{const s=deckStats(dk);total+=s.due+Math.min(s.nw,20)});
+  const intro=`<div class="notice"><p>${total?`Сегодня ждут повторения <b>${total}</b> ${plural(total,'карточка','карточки','карточек')}. Занимайтесь каждый день — так слова запоминаются надолго.`:'На сегодня всё повторено. Можно закрепить слова в тесте или в игре «Пары».'}</p></div>`;
+  const teacherSec=`<section class="sec"><div class="sec-head"><h2>Задания <em>от учителя</em></h2><div class="row">${ST.assigned.length?'<button class="btn primary" data-act="report">Отчёт учителю</button>':''}<button class="btn" data-act="paste">Вставить код</button></div></div>
+    ${assigned?`<div class="decks">${assigned}</div>`:`<div class="empty"><p>Попросите учителя прислать ссылку на колоду и откройте её — задания появятся здесь. Если пришёл код, нажмите «Вставить код».</p></div>`}</section>`;
+  return '<div id="gslot"></div>'+weakBox()+teacherSec+gardenStrip()+mineSection();
+}
+
+
+/* ---------- списки слов ---------- */
+function wordTable(rows,showDeck){
+  if(!rows.length) return `<div class="empty"><p>Под этот фильтр ничего не подходит.</p></div>`;
+  return `<div class="tablewrap"><table class="words"><thead><tr><th></th><th>Задание</th><th>Ответ</th><th>Тип</th>${showDeck?'<th>Колода</th>':''}<th>Статус</th></tr></thead><tbody>
+    ${rows.map((r,i)=>`<tr class="${r.st&&r.st.cls==='hard'?'is-hard':''}"><td class="num">${i+1}</td>
+      <td>${tOf(r.c)==='gap'?fullHTML(r.c):h(r.c.f)}${tOf(r.c)==='gap'&&r.c.b?`<div class="hint">${h(r.c.b)}</div>`:''}</td>
+      <td>${tOf(r.c)==='gap'?h(answerText(r.c)):h(tOf(r.c)==='trans'?r.c.b.split('/').map(x=>x.trim()).join(' / '):r.c.b)}</td>
+      <td><span class="tb ${tOf(r.c)}-t">${TYPES[tOf(r.c)]}</span></td>
+      ${showDeck?`<td>${h(r.deck)}</td>`:''}
+      <td>${r.st?`<span class="pill ${r.st.cls}">${r.st.t}</span>${r.st.miss?`<span class="miss">ошибок: ${r.st.miss}</span>`:''}`:''}</td></tr>`).join('')}
+  </tbody></table></div>`;
+}
+function vList(){
+  const dk=getDeck(V.key); if(!dk) return vHome();
+  const f=V.filter||'all';
+  let rows;
+  if(dk.source==='pupil'){
+    const wm=Object.fromEntries(pupilWeak(dk.sid,dk.id).map(w=>[w.id,w.miss]));
+    rows=dk.cards.filter(valid).map(c=>({c,st:wm[c.id]?{cls:'hard',t:'даётся плохо',miss:wm[c.id]}:null}));
+    if(f==='hard') rows=rows.filter(r=>r.st);
+    const nW=Object.keys(wm).length;
+    return `${modebar('Список заданий · колода ученика',dk.name)}
+      <div class="filters"><button class="btn" data-act="filter" data-f="all" aria-pressed="${f==='all'}">Все · ${dk.cards.length}</button>
+        <button class="btn" data-act="filter" data-f="hard" aria-pressed="${f==='hard'}">Даются плохо · ${nW}</button>
+        <button class="btn quiet" data-act="edit" data-key="${dk.key}">Изменить задания</button></div>
+      ${wordTable(rows,false)}`;
+  }
+  rows=dk.cards.filter(valid).map(c=>({c,st:statusOf(dk.key,c)}));
+  const cnt=k=>rows.filter(r=>r.st.cls===k).length;
+  const shown=f==='all'?rows:rows.filter(r=>r.st.cls===(f==='learn'?'':f));
+  if(f==='hard') shown.sort((a,b)=>b.st.miss-a.st.miss);
+  return `${modebar('Список заданий',dk.name)}
+    <div class="filters">${[['all','Все',rows.length],['hard','Даются плохо',cnt('hard')],['new','Новые',cnt('new')],['learn','Изучаются',cnt('')],['master','Закреплены',cnt('master')]]
+      .map(([k,t,n])=>`<button class="btn" data-act="filter" data-f="${k}" aria-pressed="${f===k}">${t} · ${n}</button>`).join('')}
+      ${cnt('hard')?`<button class="btn primary" data-act="drill" data-key="${dk.key}">Тренировать трудные</button>`:''}</div>
+    ${wordTable(shown,false)}`;
+}
+function vWeak(){
+  const w=allWeak();
+  return `${modebar('Все колоды','Даются плохо')}
+    <div class="filters">${w.length?`<button class="btn primary" data-act="drill">Тренировать все · ${w.length}</button>`:''}</div>
+    ${w.length?wordTable(w.map(x=>({c:x.c,deck:x.deck,st:{cls:'hard',t:'даётся плохо',miss:x.s.miss}})),true):`<div class="empty"><p>Трудных слов нет. Ошибки в учёбе, тесте и карточках будут собираться здесь.</p></div>`}`;
+}
+
+/* ---------- редактор ---------- */
+const PH={word:['Слово','Перевод'],gap:['Предложение, ответ в [квадратных скобках]','Подсказка (необязательно)'],trans:['Предложение по-русски','Перевод; варианты через /']};
+function vEdit(){
+  const dk=getDeck(V.key); if(!dk) return vHome();
+  const d=V.draft;
+  const rows=d.cards.map((c,i)=>{const t=tOf(c);return `<div class="cardrow"><span class="num">${i+1}</span>
+      <select class="f" id="t-${c.id}" data-cid="${c.id}" data-field="t" aria-label="Тип задания ${i+1}">${Object.entries(TYPES).map(([k,v])=>`<option value="${k}" ${k===t?'selected':''}>${v}</option>`).join('')}</select>
+      <textarea class="f" rows="1" id="f-${c.id}" data-cid="${c.id}" data-field="f" placeholder="${PH[t][0]}" aria-label="${PH[t][0]}">${h(c.f)}</textarea>
+      <textarea class="f" rows="1" id="b-${c.id}" data-cid="${c.id}" data-field="b" placeholder="${PH[t][1]}" aria-label="${PH[t][1]}">${h(c.b)}</textarea>
+      <button class="x" data-act="delcard" data-cid="${c.id}" aria-label="Удалить задание ${i+1}">×</button>
+      ${t==='gap'&&c.f.trim()&&!groups(c.f).length?`<p class="rownote" id="note-${c.id}">Обведите пропущенное слово квадратными скобками: She [is] a doctor.</p>`:`<p class="rownote" id="note-${c.id}" hidden></p>`}</div>`}).join('');
+  const forWho=dk.source==='pupil'?`<span class="lbl">колода для ученика · </span><span class="lbl" data-uid="${dk.sid}"></span>`:'<span class="lbl">моя колода</span>';
+  const bt=V.bulkType||'word';
+  const bulkHelp={word:'По одному слову в строке: «слово — перевод». Подойдёт и экспорт из Quizlet: там слово и перевод разделены табуляцией.',
+    gap:'По одному предложению в строке. Пропущенное слово — в квадратных скобках. Подсказку можно добавить через тире: «She [is] a doctor. — to be».',
+    trans:'По одному предложению в строке: «русское предложение — английский перевод». Несколько верных переводов разделяйте косой чертой /.'};
+  const bulkPh={word:'castle — замок&#10;sword — меч',gap:'She [is] a doctor. — to be&#10;[Do] you like tea? — вопрос',trans:'Я люблю читать. — I like reading. / I love reading.&#10;Где вокзал? — Where is the station?'};
+  return `<div class="modebar"><button class="btn quiet" data-act="home">← Назад</button><div class="ttl">${forWho}<h2>${h(d.name||'Без названия')}</h2></div><span class="saved" id="saved">Сохраняется само</span></div><div id="gslot"></div>
+  <div class="ed-grid">
+    <section class="panel">
+      <label class="fl"><span class="lbl">Название колоды</span><input class="f" id="deck-name" value="${h(d.name)}"></label>
+      <div class="colheads lbl"><span></span><span>Тип</span><span>Задание</span><span>Ответ</span><span></span></div>
+      <div>${rows||'<p class="muted">Заданий пока нет.</p>'}</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between">
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" data-act="addcard" data-t="word">+ Слово</button><button class="btn" data-act="addcard" data-t="gap">+ Пропуск</button><button class="btn" data-act="addcard" data-t="trans">+ Перевод</button></div>
+        <button class="btn danger" data-act="deldeck">Удалить колоду</button></div>
+    </section>
+    <section class="panel">
+      <h3>Вставить списком</h3>
+      <div class="filters">${Object.entries(TYPES).map(([k,v])=>`<button class="btn" data-act="bulktype" data-t="${k}" aria-pressed="${bt===k}">${v==='Слово'?'Слова':v==='Пропуск'?'Пропуски':'Переводы'}</button>`).join('')}</div>
+      <p class="muted">${bulkHelp[bt]}</p>
+      <textarea class="f" id="bulk" rows="9" placeholder="${bulkPh[bt]}"></textarea>
+      <p class="err" id="bulk-err" hidden></p>
+      <button class="btn primary" data-act="bulk">Добавить в колоду</button>
+    </section>
+  </div>`;
+}
+function saveDraft(){
+  const dk=getDeck(V.key); if(!dk) return;
+  const d=V.draft; const clean=()=>({name:d.name.trim()||'Без названия',cards:d.cards.filter(c=>c.f.trim()||c.b.trim())});
+  if(dk.source==='mine'){const m=ST.myDecks.find(x=>x.id===dk.id);Object.assign(m,clean(),{sample:false});saveMine();}
+  else if(dk.source==='pupil'){const created=dk.createdAt||Date.now();
+    queueSet(`assigned/${dk.sid}/decks/${dk.id}`,()=>({...clean(),createdAt:created,updatedAt:Date.now()}),700,
+      e=>{toast(e&&e.code==='quota_exceeded'?'Хранилище переполнено: удалите старые колоды.':'Не удалось сохранить. Проверьте подключение.');});}
+  const el=$('#saved'); if(el) el.textContent='Сохранено';
+}
+
+/* ---------- учёба и тренировка трудных ---------- */
+function startStudy(key){
+  const dk=getDeck(key), now=Date.now(); const cards=dk.cards.filter(valid);
+  const due=shuffle(cards.filter(c=>{const s=sched(key,c.id);return !s.n&&s.due<=now})).map(c=>({key,cid:c.id}));
+  const nw=cards.filter(c=>sched(key,c.id).n).slice(0,20).map(c=>({key,cid:c.id}));
+  go({name:'study',title:dk.name,key,queue:[...due,...nw],shown:false,res:null,ans:'',done:0,again:0,xp:0,total:due.length+nw.length,drill:false,...lifeState()});
+}
+function startDrill(key){
+  const items=(key?allWeak().filter(x=>x.key===key):allWeak()).slice(0,30).map(x=>({key:x.key,cid:x.c.id}));
+  go({name:'study',title:key?getDeck(key).name:'Трудные слова',key,queue:shuffle(items),shown:false,res:null,ans:'',done:0,again:0,xp:0,total:items.length,drill:true,requeued:[],...lifeState()});
+}
+const itemCard=it=>{const dk=getDeck(it.key);return dk&&dk.cards.find(c=>c.id===it.cid);};
+const typedLabel=c=>tOf(c)==='gap'?'вставьте пропущенное слово':'переведите на английский';
+function verdictHTML(c){
+  const t={ok:'Верно',typo:'Почти верно — опечатка',bad:'Неверно'}[V.res];
+  return `<div class="verdict ${V.res}"><b>${t}</b>${V.res!=='ok'?`<span class="yours">Ваш ответ: ${V.res==='bad'?'<s>':''}${h(V.ans||'—')}${V.res==='bad'?'</s>':''}</span>`:''}
+    <span>Правильно: ${tOf(c)==='gap'?fullHTML(c):h(answerText(c))}</span></div>`;
+}
+function vStudy(){
+  const mode=V.drill?'Тренировка трудных слов':'Учёба · интервальное повторение';
+  if(!V.total){
+    const dk=V.key?getDeck(V.key):null;
+    const nexts=dk?dk.cards.map(c=>sched(V.key,c.id)).filter(s=>!s.n).map(s=>s.due).sort((a,b)=>a-b):[];
+    const when=nexts.length?Math.max(1,Math.ceil((nexts[0]-Date.now())/DAY)):null;
+    return `${modebar(mode,V.title)}<div class="stage"><div class="leaf result"><span class="fleuron">❦</span><h3>${V.drill?'Трудных слов нет':'Пока нечего повторять'}</h3>
+      <p class="muted">${V.drill?'Все ошибки исправлены.':when?`Следующее повторение через ${when} ${plural(when,'день','дня','дней')}. А пока можно пройти тест или пролистать карточки.`:'В колоде нет заданий.'}</p>
+      <div class="row"><button class="btn primary" data-act="home">К колодам</button>${dk&&!V.drill?`<button class="btn" data-act="quiz" data-key="${dk.key}">Тест</button>`:''}</div></div></div>`;
+  }
+  if(!V.queue.length){
+    const left=allWeak().length;
+    return `${modebar(mode,V.title)}<div class="stage"><div class="leaf result"><span class="fleuron">❦ ❦ ❦</span><h3>${V.drill?'Тренировка окончена':'Урок окончен'}</h3>
+      <p class="muted">${V.drill?(left?`В списке трудных осталось ${left}. Слово уходит оттуда после трёх верных ответов подряд — повторите завтра.`:'Список трудных слов пуст.'):'Все задания на сегодня пройдены. Завтра колода напомнит о тех, что пора повторить.'}</p>
+      <div class="stats"><div><b>${V.done}</b><span>ответов</span></div><div><b>${V.again}</b><span>ошибок</span></div><div><b>+${V.xp}</b><span>опыта</span></div></div>
+      ${rewardHTML()}<div class="row"><button class="btn primary" data-act="home">К колодам</button>${left&&!V.drill?`<button class="btn" data-act="drill">Тренировать трудные · ${left}</button>`:''}</div></div></div>`;
+  }
+  if(V.over) return fallen(mode,V.title);
+  const it=V.queue[0], c=itemCard(it); if(!c){V.queue.shift();return vStudy();}
+  const s=sched(it.key,c.id), typed=isTyped(c), dk=getDeck(it.key);
+  const tally=V.drill?`<span>Осталось <b>${V.queue.length}</b></span><span>Пройдено <b>${V.done}</b></span>${V.key?'':`<span>${h(dk.name)}</span>`}`
+    :(()=>{let nN=0,nR=0;new Set(V.queue.map(q=>q.cid)).forEach(id=>sched(V.key,id).n?nN++:nR++);return `<span class="n">Новые <b>${nN}</b></span><span class="r">Повторить <b>${nR}</b></span><span>Пройдено <b>${V.done}</b></span>`;})();
+  let leaf, controls;
+  if(typed){
+    leaf=`<div class="leaf"><span class="lbl">${typedLabel(c)}${isWeak(s)?' · даётся плохо':''}</span><div class="q ${isLong(c.f)?'long':''}">${frontHTML(c)}</div>
+      ${V.res?'':hintArea(c)}</div>`;
+    if(!V.res) controls=`<form class="typebox" data-form="check"><input class="f" id="ans" placeholder="${tOf(c)==='gap'?'Пропущенное слово':'Перевод на английский'}" autocomplete="off" autocapitalize="off" spellcheck="false" value="${h(V.ans)}">
+      <button class="btn primary" type="submit">Проверить</button></form><div class="answers">${hintBtn()}<button class="btn quiet" data-act="giveup">Не знаю, показать ответ</button></div>`;
+    else{
+      let btns;
+      if(V.drill) btns=`<button class="btn primary" data-act="dnext" data-ok="${V.res==='bad'?0:1}">Дальше <span class="kbd">enter</span></button>${V.res==='bad'&&V.ans?'<button class="btn quiet" data-act="dnext" data-ok="1" data-refund="1">Я ответил верно</button>':''}`;
+      else if(V.res==='bad') btns=`<button class="btn g0" data-act="grade" data-g="0">Снова<small>через 1 мин</small><span class="kbd">enter</span></button>${V.ans?`<button class="btn quiet" data-act="grade" data-g="1" data-refund="1">Я ответил верно</button>`:''}`;
+      else btns=[1,2,3].map(g=>`<button class="btn g${g}" data-act="grade" data-g="${g}">${['','Трудно','Хорошо','Легко'][g]}<small>через ${fmtIvl(schedule(s,g).ivl)}</small><span class="kbd">${g+1}${g===(V.res==='typo'?1:2)?' · enter':''}</span></button>`).join('');
+      controls=verdictHTML(c)+`<div class="answers">${btns}</div>`;
+    }
+  }else{
+    leaf=`<div class="leaf"><span class="lbl">${s.n&&!V.drill?'новое слово':isWeak(s)?'даётся плохо':'повторение'}</span><div class="q ${isLong(c.f)?'long':''}">${h(c.f)}</div>
+      ${V.shown?`<span class="fleuron">❦</span><div class="a ${isLong(c.b)?'long':''}">${h(c.b)}</div>`:hintArea(c)}</div>`;
+    if(!V.shown) controls=`<div class="answers">${hintBtn()}<button class="btn primary" data-act="show" style="flex:0 1 320px;padding:14px">Показать ответ <span class="kbd">пробел</span></button></div>`;
+    else if(V.drill) controls=`<div class="answers"><button class="btn g0" data-act="dnext" data-ok="0">Не помню<span class="kbd">1</span></button><button class="btn g2" data-act="dnext" data-ok="1">Помню<span class="kbd">2</span></button></div>`;
+    else controls=`<div class="answers">${['Снова','Трудно','Хорошо','Легко'].map((n,i)=>`<button class="btn g${i}" data-act="grade" data-g="${i}">${n}<small>через ${fmtIvl(schedule(s,i).ivl)}</small><span class="kbd">${i+1}</span></button>`).join('')}</div>`;
+  }
+  return `${modebar(mode,V.title)}
+  <div><div class="progress"><i style="width:${Math.round(V.done/(V.done+V.queue.length)*100)}%"></i></div><div class="tally">${tally}${livesHTML()}</div></div>
+  <div class="stage">${leaf}${controls}</div>`;
+}
+function submitCheck(){
+  const it=V.queue[0], c=itemCard(it); const inp=$('#ans'); V.ans=inp?inp.value:'';
+  if(!V.ans.trim()){inp&&inp.focus();return;}
+  V.res=check(V.ans,c); react(V.res!=='bad',V.res==='typo');
+  if(innerWidth<560)afterRender(()=>{const v=$('.verdict');v&&v.scrollIntoView({block:'center',behavior:'smooth'});});
+  if(V.res==='bad'){loseLife();afterRender(()=>{boo();pulse('.leaf','hit');});}
+  else afterRender(()=>{cheer(0);pulse('.leaf','glow-ok');});
+  render();
+}
+function grade(g){
+  const it=V.queue[0]; const old=sched(it.key,it.cid); const typed=!!V.res, at=rectOf('.leaf'); V.say=null;V.mood='';V.lowSay=null; if(!typed)react(g>0);
+  srsOf(it.key)[it.cid]={...old,...schedule(old,g)};
+  V.queue.shift(); V.done++;
+  if(g===0){V.again++;V.queue.push(it);if(!V.res)loseLife();} else gainRun();
+  mark(it.key,it.cid,g>0);
+  const xp=V.hint?Math.ceil([1,3,5,6][g]/2):[1,3,5,6][g]; V.xp+=xp; addXP(xp);
+  if(!typed){g>0?cheer(xp,at):boo(at);} else if(g>0&&at) FX.float('+'+xp,at.x,at.top+10);
+  if(V.lives<=0&&V.queue.length) V.over=true;
+  V.shown=false; V.res=null; V.ans=''; V.hint=false; render();
+}
+function drillNext(ok){
+  const typed=!!V.res, at=rectOf('.leaf'); V.say=null;V.mood='';V.lowSay=null; if(!typed)react(ok);
+  const it=V.queue.shift(); V.done++;
+  mark(it.key,it.cid,ok);
+  if(!ok){V.again++; if(!V.res)loseLife(); if(!V.requeued.includes(it.cid)){V.requeued.push(it.cid);V.queue.push(it);}}
+  else{gainRun();const xp=V.hint?2:4;V.xp+=xp;addXP(xp);if(!typed)cheer(xp,at);else if(at)FX.float('+'+xp,at.x,at.top+10);}
+  if(!ok&&!typed) boo(at);
+  if(V.lives<=0&&V.queue.length) V.over=true;
+  V.shown=false; V.res=null; V.ans=''; V.hint=false; render();
+}
+
+/* ---------- карточки ---------- */
+function vFlash(){
+  const dk=getDeck(V.key); const cards=dk?dk.cards.filter(valid):[]; if(!cards.length) return vHome();
+  V.i=Math.min(V.i,V.order.length-1);
+  const c=cards.find(x=>x.id===V.order[V.i])||cards[0];
+  const t=tOf(c);
+  let front,back,fl,bl;
+  if(t==='gap'){front=frontHTML(c);back=fullHTML(c)+(c.b?`<p class="hint">${h(c.b)}</p>`:'');fl='вставьте слово';bl='ответ';}
+  else if(t==='trans'){front=h(c.f);back=fullHTML(c);fl='переведите';bl='перевод';}
+  else{front=h(V.swap?c.b:c.f);back=h(V.swap?c.f:c.b);fl=V.swap?'перевод':'слово';bl=V.swap?'слово':'перевод';}
+  const long=isLong(c.f)||isLong(c.b);
+  return `${modebar('Карточки',dk.name)}<div class="stage">
+    <div class="flip-wrap"><button class="flip ${V.flipped?'is-flipped':''}" id="flipcard" data-act="flip" aria-label="Перевернуть карточку">
+      <div class="leaf"><span class="lbl">${fl}</span><div class="q ${long?'long':''}">${front}</div><span class="muted tap-hint">Нажмите, чтобы перевернуть${dk.studiable?'<span class="touch-only"> · свайп вправо — знаю, влево — не знаю</span>':''}</span></div>
+      <div class="leaf back"><span class="lbl">${bl}</span><div class="a ${long?'long':''}">${back}</div></div></button></div>
+    ${dk.studiable?`<div class="navrow knowrow"><button class="btn g0" data-act="know" data-ok="0">Не знаю <span class="kbd">1</span></button><button class="btn g2" data-act="know" data-ok="1">Знаю <span class="kbd">2</span></button></div>`:''}
+    <div class="navrow"><button class="btn" data-act="fmove" data-d="-1" aria-label="Предыдущая">←</button><span class="pos">${V.i+1} / ${V.order.length}</span><button class="btn" data-act="fmove" data-d="1" aria-label="Следующая">→</button></div>
+    <div class="navrow"><span class="muted">Знаю: ${V.known} · Не знаю: ${V.unknown}</span><button class="btn quiet" data-act="fshuffle">Перемешать</button><button class="btn quiet" data-act="fswap">${V.swap?'Слова: сначала слово':'Слова: сначала перевод'}</button></div>
+  </div>`;
+}
+function know(ok){
+  const dk=getDeck(V.key); if(!dk.studiable) return;
+  const at=rectOf('#flipcard'); react(ok); mark(V.key,V.order[V.i],ok); ok?V.known++:V.unknown++;
+  if(at){if(ok){SND.good();FX.burst(at.x,at.y,{n:30,speed:5,colors:['#839958','#5f7a3c','#b5c77d']});}else{SND.bad();FX.burst(at.x,at.y,{n:14,speed:3,shard:true,g:.2,colors:['#c47a6e','#D3968C']});}}
+  if(V.i===V.order.length-1){toast(`Колода пройдена: знаю ${V.known}, не знаю ${V.unknown}`);}
+  fmove(1);
+}
+
+/* ---------- тест ---------- */
+function startQuiz(key){
+  const dk=getDeck(key); const cards=dk.cards.filter(valid); const words=cards.filter(c=>tOf(c)==='word');
+  const qs=shuffle(cards).slice(0,10).map(c=>{
+    if(tOf(c)==='word'&&words.length>=4){
+      const others=shuffle(words.filter(x=>x.id!==c.id&&x.b!==c.b)).slice(0,3).map(x=>x.id);
+      if(others.length===3) return {id:c.id,mode:'mc',opts:shuffle([c.id,...others])};
+    }
+    return {id:c.id,mode:'type'};
+  });
+  go({name:'quiz',key,qs,i:0,picked:null,res:null,ans:'',score:0,xp:0,wrong:[],...lifeState()});
+}
+function vQuiz(){
+  const dk=getDeck(V.key); if(!dk) return vHome(); const by=id=>dk.cards.find(x=>x.id===id)||{f:'',b:''};
+  if(V.i>=V.qs.length){
+    const r=V.score/V.qs.length;
+    const verdict=r===1?'Безупречно, ни одной ошибки.':r>=.7?'Хороший результат. Ошибки добавлены в список трудных.':r>=.4?'Неплохо для начала. Ошибки собраны в списке трудных — потренируйте их.':'Задания пока не запомнились. Начните с карточек или учёбы.';
+    return `${modebar('Тест',dk.name)}<div class="stage"><div class="leaf result"><span class="lbl">итог</span><h3>${V.score} из ${V.qs.length}</h3><p class="muted">${verdict}</p>
+      <div class="stats"><div><b>${Math.round(r*100)}%</b><span>верно</span></div><div><b>+${V.xp}</b><span>опыта</span></div></div>
+      ${V.wrong.length?`<div class="chips" style="justify-content:center">${V.wrong.map(id=>`<span class="chip">${h(plainFront(by(id)))}</span>`).join('')}</div>`:''}
+      ${rewardHTML()}<div class="row"><button class="btn primary" data-act="quiz" data-key="${dk.key}">Ещё раз</button>${V.wrong.length?`<button class="btn" data-act="drill" data-key="${dk.key}">Тренировать ошибки</button>`:''}<button class="btn quiet" data-act="home">К колодам</button></div></div></div>`;
+  }
+  if(V.over) return fallen('Тест',dk.name);
+  const q=V.qs[V.i], c=by(q.id); const answered=q.mode==='mc'?!!V.picked:!!V.res;
+  let body;
+  if(q.mode==='mc'){
+    body=`<div class="leaf" style="min-height:200px"><span class="lbl">выберите перевод</span><div class="q">${h(c.f)}</div></div>
+      <div class="opts">${q.opts.map((o,k)=>{let cls=V.gone.includes(o)&&!V.picked?'gone':'';if(V.picked){if(o===q.id)cls='ok';else if(o===V.picked)cls='bad';}
+        return `<button class="opt ${cls}" data-act="pick" data-oid="${o}" ${V.picked?'disabled':''}><span class="n">${k+1}</span><span>${h(by(o).b)}</span></button>`}).join('')}</div>`;
+  }else{
+    const lbl=tOf(c)==='word'?'напишите перевод':typedLabel(c);
+    body=`<div class="leaf" style="min-height:200px"><span class="lbl">${lbl}</span><div class="q ${isLong(c.f)?'long':''}">${frontHTML(c)}</div>${V.res?'':hintArea(c)}</div>
+      ${V.res?verdictHTML(c):`<form class="typebox" data-form="qcheck"><input class="f" id="ans" placeholder="Ваш ответ" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="btn primary" type="submit">Проверить</button></form>`}`;
+  }
+  return `${modebar('Тест',dk.name)}
+  <div><div class="progress"><i style="width:${Math.round(V.i/V.qs.length*100)}%"></i></div><div class="tally"><span>Вопрос <b>${V.i+1}</b> из ${V.qs.length}</span><span>Верно <b>${V.score}</b></span>${livesHTML()}</div></div>
+  <div class="stage">${body}${!answered&&hintBtn()?`<div class="answers">${q.mode==='mc'?hintBtn().replace('Подсказка','Подсказка: убрать два ответа'):hintBtn()}</div>`:''}${answered?`<button class="btn primary" data-act="qnext" style="padding:12px 26px">${V.i+1<V.qs.length?'Дальше':'Итоги'} <span class="kbd">enter</span></button>`:''}</div>`;
+}
+function quizResult(ok,at){
+  const q=V.qs[V.i]; const xp0=V.hint?2:4; react(ok,V.res==='typo');
+  ok?cheer(xp0,at):boo(at);
+  if(ok){V.score++;const xp=V.hint?2:4;V.xp+=xp;addXP(xp);gainRun();} else {V.wrong.push(q.id);loseLife();}
+  mark(V.key,q.id,ok);
+}
+function pick(o){if(V.picked)return;V.picked=o;const el=document.querySelector(`.opt[data-oid="${o}"]`);quizResult(o===V.qs[V.i].id,rectOf(el));render();}
+function qcheck(){const inp=$('#ans');V.ans=inp?inp.value:'';if(!V.ans.trim()){inp&&inp.focus();return;}
+  const c=getDeck(V.key).cards.find(x=>x.id===V.qs[V.i].id); V.res=check(V.ans,c); quizResult(V.res!=='bad',rectOf('.leaf')); if(V.res==='bad')afterRender(()=>pulse('.leaf','hit')); else afterRender(()=>pulse('.leaf','glow-ok')); render();}
+function qnext(){if(V.lives<=0&&V.i+1<V.qs.length){V.over=true;render();return;}V.i++;V.picked=null;V.res=null;V.ans='';V.hint=false;V.gone=[];V.say=null;V.mood='';V.lowSay=null;render();}
+
+/* ---------- пары ---------- */
+function startMatch(key){
+  const dk=getDeck(key);
+  const tiles=shuffle(shuffle(dk.cards.filter(c=>tOf(c)==='word')).slice(0,6).flatMap(c=>[{cid:c.id,t:c.f},{cid:c.id,t:c.b}])).map((x,k)=>({...x,k,gone:false}));
+  go({name:'match',key,tiles,sel:null,wrong:[],start:performance.now(),done:false,mistakes:0,time:0,...lifeState()});
+}
+function startTimer(){clearInterval(timer);timer=setInterval(()=>{const el=$('#mt');if(el)el.textContent=((performance.now()-V.start)/1000).toFixed(1);},100);}
+function vMatch(){
+  const dk=getDeck(V.key); if(!dk) return vHome();
+  const best=(ST.stats.best||{})[V.key];
+  if(V.over) return fallen('Пары',dk.name);
+  if(V.done) return `${modebar('Пары',dk.name)}<div class="stage"><div class="leaf result"><span class="lbl">время</span><h3>${V.time.toFixed(1)} сек</h3>
+      <p class="muted">${!best||V.time<=best?'Это новый рекорд для этой колоды.':`Рекорд колоды — ${best.toFixed(1)} сек.`} Ошибок: ${V.mistakes}.</p>
+      ${rewardHTML()}<div class="row"><button class="btn primary" data-act="match" data-key="${dk.key}">Сыграть снова</button><button class="btn" data-act="home">К колодам</button></div></div></div>`;
+  return `${modebar('Пары · соедините слово с переводом',dk.name)}
+  <div class="mtop"><span>Время <b id="mt">0.0</b></span>${best?`<span>Рекорд <b>${best.toFixed(1)}</b></span>`:''}${livesHTML()}</div>
+  <div class="stage"><div class="tiles">${V.tiles.map(t=>`<button class="tile ${t.gone?'gone':''} ${V.sel===t.k?'sel':''} ${V.wrong.includes(t.k)?'wrong':''}" data-act="tile" data-k="${t.k}">${h(t.t)}</button>`).join('')}</div></div>`;
+}
+function tile(k){
+  if(V.done||V.over)return; const t=V.tiles[k]; if(t.gone)return;
+  if(V.sel===null||V.sel===k){V.sel=V.sel===k?null:k;SND.select();render();return;}
+  const o=V.tiles[V.sel];
+  const r1=rectOf(`.tile[data-k="${V.sel}"]`), r2=rectOf(`.tile[data-k="${k}"]`);
+  if(o.cid===t.cid){o.gone=t.gone=true;V.sel=null;SND.good();V.say=rnd(['Пара найдена!','Верно!','Так держать!','Ещё одна пара.']);V.mood='happy';[r1,r2].forEach(r=>{if(r){FX.ring(r.x,r.y,'#839958',50);FX.burst(r.x,r.y,{n:26,speed:4.5,colors:['#839958','#b5c77d','#D3968C'],g:.05});}});
+    if(V.tiles.every(x=>x.gone)){V.done=true;V.time=(performance.now()-V.start)/1000;clearInterval(timer);
+      ST.stats.best=ST.stats.best||{}; const b=ST.stats.best[V.key]; if(!b||V.time<b) ST.stats.best[V.key]=+V.time.toFixed(1); addXP(20);}
+    render();
+  }else{V.wrong=[V.sel,k];V.mistakes++;V.sel=null;loseLife();V.say=rnd(['Не пара. Осторожнее!','Мимо. Вглядись внимательнее.']);V.mood='sad';SND.bad();FX.flash('hurt');render();
+    setTimeout(()=>{V.wrong=[];if(V.name!=='match'||V.done)return;if(V.lives<=0){V.over=true;clearInterval(timer);}render();},450);}
+}
+
+/* ===================== проводница: Мила ===================== */
+const GNAME='Мила';
+function FIG(vb){return `<svg class="mila" viewBox="${vb}" aria-hidden="true" preserveAspectRatio="xMidYMax meet">
+ <path d="M33 52 Q28 18 60 15 Q92 18 87 52 Q94 92 85 122 Q77 132 70 114 L50 114 Q43 132 35 122 Q26 92 33 52 Z" fill="#6b4226"/>
+ <path d="M38 64 Q33 84 38 104 M82 64 Q87 84 82 104 M44 92 Q40 104 44 116 M76 92 Q80 104 76 116" stroke="#8d5a35" stroke-width="2" fill="none" stroke-linecap="round"/>
+ <rect x="54" y="66" width="12" height="16" rx="4" fill="#e8bea0"/>
+ <path d="M28 200 L32 108 Q35 84 60 82 Q85 84 88 108 L92 200 Z" fill="#839958"/>
+ <path d="M42 112 V200 M50 108 V200 M58 106 V200 M66 106 V200 M74 108 V200 M82 112 V200" stroke="#6f844a" stroke-width="1.3" opacity=".7"/>
+ <path d="M46 84 Q60 96 74 84 Q68 80 60 80 Q52 80 46 84 Z" fill="#6f844a"/>
+ <path d="M86 110 Q96 150 90 196 L80 196 Q84 150 78 116 Z" fill="#76904c"/>
+ <g class="cup">
+  <path d="M36 110 Q27 142 42 152 Q50 155 55 147 Q45 138 45 114 Z" fill="#76904c"/>
+  <path d="M47 116 L67 116 L64 150 L50 150 Z" fill="#eef4e0" stroke="#bccc9c" stroke-width="1"/>
+  <path d="M48.3 126 L65.7 126 L64 150 L50 150 Z" fill="#8fae5a"/>
+  <path d="M48.6 129 Q57 132 65.4 129" stroke="#c5d79e" stroke-width="1.6" fill="none"/>
+  <rect x="51" y="133" width="5" height="5" rx="1" fill="#dcead0" opacity=".85"/><rect x="58" y="138" width="4" height="4" rx="1" fill="#dcead0" opacity=".7"/>
+  <line x1="59" y1="117" x2="64" y2="100" stroke="#1d2a1f" stroke-width="2.2" stroke-linecap="round"/>
+  <ellipse cx="50" cy="146" rx="5.5" ry="4.5" fill="#f2cfb3"/>
+ </g>
+ <ellipse cx="60" cy="50" rx="17" ry="20" fill="#f2cfb3"/>
+ <path d="M42 48 Q43 26 60 25 Q77 26 78 48 Q73 34 63 35 Q55 36 50 40 Q46 43 42 48 Z" fill="#6b4226"/>
+ <path d="M43 44 Q37 72 41 96" stroke="#6b4226" stroke-width="7" fill="none" stroke-linecap="round"/>
+ <path d="M77 44 Q83 72 79 96" stroke="#6b4226" stroke-width="7" fill="none" stroke-linecap="round"/>
+ <rect x="68" y="31" width="9" height="3.4" rx="1.7" fill="#D3968C" transform="rotate(-24 72 33)"/>
+ <path d="M50 45.5 q3 -1.6 6 0 M64 45.5 q3 -1.6 6 0" stroke="#5a3620" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+ <g class="eyes"><ellipse cx="53" cy="52" rx="2" ry="2.6" fill="#2a1d16"/><ellipse cx="67" cy="52" rx="2" ry="2.6" fill="#2a1d16"/><circle cx="53.7" cy="51.2" r=".7" fill="#fff"/><circle cx="67.7" cy="51.2" r=".7" fill="#fff"/></g>
+ <path class="joy" d="M50.5 53 q2.5 -3 5 0 M64.5 53 q2.5 -3 5 0" stroke="#2a1d16" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+ <ellipse cx="48.5" cy="59" rx="3.6" ry="2" fill="#D3968C" opacity=".6"/><ellipse cx="71.5" cy="59" rx="3.6" ry="2" fill="#D3968C" opacity=".6"/>
+ <path class="mouth" d="M56 61.5 q4 3 8 0" stroke="#a5574a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+</svg>`;}
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+const SAY={
+  praise:['Превосходно!','Верно, ты умничка!','Точно в цель!','Так держать!','Отлично! Твой сад слов подрос.','Безупречно.','Именно так!'],
+  typo:['Почти! Лишь опечатка, ответ засчитан.','Верно, только буква сбежала.'],
+  oops:['Не беда. Ошибка — тоже урок.','Запомни верный ответ, я верну это слово позже.','Ошибаться — нормально. Дальше!','Ничего, это слово мы ещё повторим.'],
+  low:['Сил осталось немного. Возьми мою подсказку.','Осторожнее! Подсказка поможет.','Ещё две ошибки — и придётся отступить. Подсказать?'],
+  tips:['Занимайся понемногу каждый день: так слова запоминаются надолго.','Слово уходит из трудных после трёх верных ответов подряд.','В пропусках апострофы можно не ставить: dont засчитаю как don’t.',
+    'За четыре верных ответа подряд я верну тебе одну жизнь.','Оценивай себя честно: «Легко» отодвинет слово на много дней.','В карточках смахни вправо, если знаешь слово, и влево, если нет.'],
+};
+function greet(){const hr=new Date().getHours();return hr<5?'Доброй ночи':hr<12?'Доброе утро':hr<18?'Добрый день':'Добрый вечер';}
+function answered(){
+  if(V.name==='study'){const it=V.queue&&V.queue[0],c=it&&itemCard(it);if(!c)return true;return isTyped(c)?!!V.res:!!V.shown;}
+  if(V.name==='quiz'){const q=V.qs&&V.qs[V.i];if(!q)return true;return q.mode==='mc'?!!V.picked:!!V.res;}
+  return true;
+}
+const isEnded=()=>(V.name==='study'&&V.total&&!V.queue.length)||(V.name==='quiz'&&V.i>=V.qs.length)||(V.name==='match'&&V.done);
+function react(ok,typo){V.say=ok?(typo?rnd(SAY.typo):rnd(SAY.praise)):rnd(SAY.oops);V.mood=ok?'happy':'sad';}
+function guideFor(){
+  const ended=isEnded();
+  if(V.over) return {t:'Сделаем паузу: глоток воды, вдох-выдох. Жизни я восстановлю.',m:'sad'};
+  if(['study','quiz'].includes(V.name)&&!ended&&V.lives>0&&V.lives<=2&&!V.hint&&!answered())
+    return {t:V.lowSay||(V.lowSay=rnd(SAY.low)),m:'sad',a:'<button class="btn hintbtn" data-act="hint">Взять подсказку</button>'};
+  if(V.say) return {t:V.say,m:V.mood};
+  if(ended){
+    if(V.name==='quiz'){const r=V.score/V.qs.length;return {t:r===1?'Ни одной ошибки! Идеально.':r>=.7?'Хорошее испытание. Ошибки я записала в трудные слова.':'Испытание трудное. Потренируй ошибки, и в следующий раз будет легче.',m:r>=.7?'happy':''};}
+    if(V.name==='match') return {t:`Все пары собраны за ${V.time.toFixed(1)} сек. Вот это скорость!`,m:'happy'};
+    return {t:V.drill?'Трудные слова отработаны. Вернись к ним завтра.':'Урок окончен. Завтра я напомню, какие слова пора повторить.',m:'happy'};
+  }
+  switch(V.name){
+    case 'home':{
+      if(ST.isTeacher&&ST.tab==='students') return {t:ST.reports.length?'Вот отчёты твоих учеников. Слова, которые им даются тяжело, стоит добавить в новую колоду.':'Учитель, поделись колодой с учениками: кнопка «Поделиться» на колоде. Когда они пришлют отчёты, я покажу их здесь.'};
+      if(ST.isTeacher&&ST.tab==='mine') return {t:'Создай колоду и нажми «Поделиться» — я сделаю ссылку, которую можно отправить ученику в любом мессенджере.'};
+      let due=0,best=null,bestN=0; studiableDecks().forEach(dk=>{const s=deckStats(dk),n=s.due+Math.min(s.nw,20);due+=n;if(n>bestN){bestN=n;best=dk;}});
+      const weak=allWeak().length;
+      if(!ST.assigned.length&&!ST.myDecks.length) return {t:`${greet()}! Попроси учителя прислать ссылку на колоду или создай свою.`};
+      const t=`${greet()}! ${due?`Сегодня тебя ждут ${due} ${plural(due,'карточка','карточки','карточек')}${best?` — начнём с «${best.name}»`:''}.`:'На сегодня всё повторено. Можно пройти испытание или сыграть в «Пары».'}${weak?` И ${weak} ${plural(weak,'слово даётся','слова даются','слов даются')} тебе тяжело.`:''}`;
+      const a=(best?`<button class="btn primary" data-act="study" data-key="${best.key}">Начать урок</button>`:'')+(weak?`<button class="btn" data-act="drill">Тренировать трудные</button>`:'');
+      return {t,a:a?`<div class="row">${a}</div>`:''};
+    }
+    case 'study':{
+      const it=V.queue&&V.queue[0],c=it&&itemCard(it);if(!c) return {t:V.total?'':'Сегодня здесь нечего повторять. Загляни позже.'};
+      if(V.hint) return {t:'Подсказка уже на карточке. Вчитайся внимательно.'};
+      if(isTyped(c)) return {t:tOf(c)==='gap'?'Впиши пропущенное слово. Апострофы можно не ставить.':'Переведи на английский. Подойдёт любой верный вариант.'};
+      const s=sched(it.key,c.id);
+      return {t:V.shown?'Оцени себя честно: чем легче вспомнил, тем позже я верну это слово.':s.n?'Новое слово. Вспомни перевод, затем открой ответ.':'Это слово ты уже встречал. Помнишь его?'};
+    }
+    case 'quiz': return {t:V.hint?'Я убрала лишнее. Выбирай внимательно.':'Испытание! Отвечай внимательно: каждая ошибка стоит жизни.'};
+    case 'match': return {t:'Соединяй слово с переводом. Быстро, но осторожно: ошибка стоит жизни.'};
+    case 'flash': return {t:matchMedia('(hover:none)').matches?'Нажми на карточку, чтобы перевернуть. Смахни вправо — знаю, влево — не знаю.':'Нажми на карточку или пробел, чтобы перевернуть. Затем «Знаю» или «Не знаю».'};
+    case 'list': return {t:'Красным отмечены слова, которые даются тяжело. Их можно потренировать отдельно.'};
+    case 'garden': return {t:ST.garden.plants.length?'Смотри, как разрослась твоя поляна! Урок без ошибок вырастит дерево или пион.':'Здесь будет твой сад. Пройди любой урок — и появится первый росток.',m:ST.garden.plants.length?'happy':''};
+    case 'weak': return {t:'Здесь собраны слова со всех колод, в которых были ошибки.'};
+    case 'edit': return {t:'Пропуск пиши в [скобках]: She [is] a doctor. Несколько верных вариантов — через косую черту /.'};
+  }
+  return {t:rnd(SAY.tips)};
+}
+let lastSaid='',typeT=null;
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function typeSay(el,text){
+  clearInterval(typeT); if(!el) return;
+  const sizer=el.querySelector('.sizer'),out=el.querySelector('.typed'); sizer.textContent=text;
+  if(text===lastSaid||reduceMotion){out.textContent=text;lastSaid=text;return;}
+  lastSaid=text; out.textContent=''; let i=0;
+  typeT=setInterval(()=>{i+=2;out.textContent=text.slice(0,i);if(i>=text.length)clearInterval(typeT);},20);
+}
+function renderGuide(){
+  const slot=$('#gslot'); if(!slot) return;
+  const g=guideFor(); if(!g.t){slot.innerHTML='';return;}
+  const full=V.name==='home';
+  slot.innerHTML=`<section class="guide ${full?'full':'mini'} ${g.m||''}">
+    <button class="gfig" data-act="guidetip" aria-label="${GNAME}: следующий совет">${FIG(full?'16 10 88 190':'34 22 52 52')}</button>
+    <div class="bubble"><span class="gname">${GNAME}</span><p class="gsay" aria-live="polite"><span class="sizer"></span><span class="typed"></span></p>${g.a||''}</div></section>`;
+  typeSay(slot.querySelector('.gsay'),g.t);
+}
+
+/* ===================== обмен по ссылкам (без сервера) ===================== */
+async function enc(prefix,obj){
+  let bytes=new TextEncoder().encode(JSON.stringify(obj)),v='0';
+  if(window.CompressionStream){try{const st=new Blob([bytes]).stream().pipeThrough(new CompressionStream('deflate-raw'));bytes=new Uint8Array(await new Response(st).arrayBuffer());v='1';}catch(e){}}
+  let bin='';for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);
+  return prefix+v+'.'+btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+async function dec(text){
+  const m=String(text).match(/([DR])([01])\.([A-Za-z0-9_-]{8,})/); if(!m) throw new Error('nocode');
+  const b64=m[3].replace(/-/g,'+').replace(/_/g,'/'); const bin=atob(b64+'==='.slice((b64.length+3)%4));
+  let bytes=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+  if(m[2]==='1'){if(!window.DecompressionStream)throw new Error('old');const st=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'));bytes=new Uint8Array(await new Response(st).arrayBuffer());}
+  return {kind:m[1],data:JSON.parse(new TextDecoder().decode(bytes))};
+}
+const siteLink=code=>location.protocol==='file:'?'':`${location.origin}${location.pathname}#${code}`;
+async function copyText(t){
+  try{await navigator.clipboard.writeText(t);toast('Скопировано');}
+  catch(e){const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');toast('Скопировано');}catch(_){toast('Выделите текст и скопируйте вручную');}ta.remove();}
+}
+let SHARE={};
+function shareBox(title,intro,code){
+  const link=siteLink(code); SHARE={title,text:intro,link,code};
+  modal(`<h3>${h(title)}</h3><p class="muted">${h(intro)}</p>
+    ${link?`<label class="fl"><span class="lbl">Ссылка</span><input class="f" id="sh-link" readonly value="${h(link)}"></label>`:`<p class="err">Ссылка появится, когда сайт будет выложен в интернет. Пока отправьте код ниже.</p>`}
+    <label class="fl"><span class="lbl">Код (если ссылка не открывается)</span><textarea class="f" id="sh-code" rows="3" readonly>${h(code)}</textarea></label>
+    <div class="row">${navigator.share?'<button class="btn primary" data-act="webshare">Отправить…</button>':''}
+      ${link?'<button class="btn" data-act="copylink">Копировать ссылку</button>':''}<button class="btn" data-act="copycode">Копировать код</button><button class="btn quiet" data-act="close">Готово</button></div>`);
+}
+async function shareDeck(key){
+  const dk=getDeck(key); if(!dk) return;
+  const cards=dk.cards.filter(c=>(c.f||'').trim()||(c.b||'').trim());
+  if(!cards.length){toast('В колоде нет заданий');return;}
+  const code=await enc('D',{i:dk.id,n:dk.name,c:cards.map(c=>[tOf(c),c.f,c.b,c.id])});
+  shareBox(`Поделиться «${dk.name}»`,`Отправьте ученику ссылку. Он откроет её, и колода появится у него в разделе «Задания от учителя». Если вы потом измените колоду, просто отправьте ссылку ещё раз — прогресс ученика сохранится.`,code);
+}
+function reportData(){
+  const decks=(ST.assigned.length?ST.assigned.map(d=>getDeck('a:'+d.id)):ST.myDecks.map(d=>getDeck('m:'+d.id))).filter(Boolean);
+  const streak=(ST.stats.lastDay===dstr(Date.now())||ST.stats.lastDay===dstr(Date.now()-DAY))?ST.stats.streak:0;
+  return {n:(ST.settings.name||'').trim(),t:Date.now(),xp:ST.stats.xp,s:streak,g:ST.garden.plants.length,
+    d:decks.map(dk=>{const s=deckStats(dk);
+      const weak=dk.cards.filter(valid).map(c=>({c,s:sched(dk.key,c.id)})).filter(x=>isWeak(x.s)).sort((a,b)=>b.s.miss-a.s.miss).slice(0,25).map(x=>({f:plainFront(x.c),miss:x.s.miss}));
+      return {i:dk.id,name:dk.name,total:s.all,learned:s.learned,mastered:s.mastered,weak};})};
+}
+function reportStart(){
+  modal(`<h3>Отчёт учителю</h3><p class="muted">Учитель увидит, сколько слов вы изучили и какие даются тяжело.</p>
+    <label class="fl"><span class="lbl">Ваше имя</span><input class="f" id="rep-name" value="${h(ST.settings.name||'')}" placeholder="Аня Смирнова" autocomplete="name"></label>
+    <p class="err" id="rep-err" hidden></p>
+    <div class="row"><button class="btn quiet" data-act="close">Отмена</button><button class="btn primary" data-act="report2">Создать отчёт</button></div>`);
+  setTimeout(()=>$('#rep-name')?.focus(),30);
+}
+async function reportMake(){
+  const nm=($('#rep-name')?.value||'').trim(); if(!nm){const e=$('#rep-err');e.hidden=false;e.textContent='Впишите имя, чтобы учитель понял, чей это отчёт.';return;}
+  ST.settings.name=nm; saveSettings();
+  const code=await enc('R',reportData());
+  shareBox('Отчёт готов','Отправьте эту ссылку учителю в любом мессенджере. Он откроет её и увидит ваш прогресс.',code);
+}
+let PENDING=null;
+async function importCode(text,fromLink){
+  let r; try{r=await dec(text);}catch(e){toast(e.message==='old'?'Этот браузер слишком старый для кода. Обновите его.':'Не получилось прочитать код. Скопируйте его целиком.');return false;}
+  PENDING=r;
+  if(r.kind==='D'){const d=r.data,exists=ST.assigned.some(x=>x.id===d.i);
+    modal(`<h3>${exists?'Учитель обновил колоду':'Новая колода от учителя'}</h3><p>«${h(d.n)}» · ${d.c.length} ${plural(d.c.length,'задание','задания','заданий')}.</p>
+      <p class="muted">${exists?'Слова обновятся, ваш прогресс сохранится.':'Колода появится в разделе «Задания от учителя».'}</p>
+      <div class="row"><button class="btn quiet" data-act="close">Отмена</button><button class="btn primary" data-act="impok">${exists?'Обновить':'Добавить'}</button></div>`);}
+  else{const d=r.data;
+    modal(`<h3>Отчёт ученика</h3><p><b>${h(d.n||'Без имени')}</b> · ${(d.d||[]).length} ${plural((d.d||[]).length,'колода','колоды','колод')} · ${fmtDate(d.t)}</p>
+      <p class="muted">${ST.isTeacher?'Отчёт появится во вкладке «Ученики».':'Отчёт сохранится, а сайт переключится в режим учителя.'}</p>
+      <div class="row"><button class="btn quiet" data-act="close">Отмена</button><button class="btn primary" data-act="impok">Сохранить</button></div>`);}
+  return true;
+}
+function importConfirm(){
+  const r=PENDING; PENDING=null; closeModal(); if(!r) return;
+  if(r.kind==='D'){const d=r.data,deck={id:d.i,name:d.n,cards:d.c.map(([t,f,b,id])=>({id:id||uid(),t,f,b})),updatedAt:Date.now()};
+    const i=ST.assigned.findIndex(x=>x.id===d.i);
+    if(i>=0){deck.createdAt=ST.assigned[i].createdAt;ST.assigned[i]=deck;}else{deck.createdAt=Date.now();ST.assigned.push(deck);}
+    saveAssigned(); if(ST.isTeacher){ST.isTeacher=false;ST.settings.role='student';saveSettings();renderHeader();}
+    go({name:'home'}); toast('Колода добавлена'); SND.win(); FX.fireworks(3);
+  }else{const d=r.data; const nm=(d.n||'Без имени').trim();
+    const i=ST.reports.findIndex(x=>(x.n||'').toLowerCase()===nm.toLowerCase());
+    if(i>=0){if((ST.reports[i].t||0)<=d.t)ST.reports[i]=d;}else ST.reports.push(d);
+    saveReports(); ST.isTeacher=true; ST.settings.role='teacher'; ST.tab='students'; saveSettings(); renderHeader();
+    go({name:'home'}); toast(`Отчёт «${nm}» сохранён`); SND.good();
+  }
+}
+function pasteBox(){
+  modal(`<h3>Вставить код</h3><p class="muted">Вставьте ссылку или код колоды от учителя либо отчёт ученика.</p>
+    <textarea class="f" id="pastebox" rows="4" placeholder="https://…#D1.… или D1.…"></textarea>
+    <div class="row"><button class="btn quiet" data-act="close">Отмена</button><button class="btn primary" data-act="paste2">Открыть</button></div>`);
+  setTimeout(()=>$('#pastebox')?.focus(),30);
+}
+function handleHash(){
+  const hsh=decodeURIComponent(location.hash||'');
+  if(/[DR][01]\.[A-Za-z0-9_-]{8,}/.test(hsh)){importCode(hsh,true);try{history.replaceState(null,'',location.pathname+location.search);}catch(e){}}
+}
+window.addEventListener('hashchange',handleHash);
+const fmtDate=t=>t?new Date(t).toLocaleDateString('ru-RU',{day:'numeric',month:'long'})+', '+new Date(t).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}):'';
+const saveAssigned=()=>savePriv('assigned',()=>({decks:ST.assigned}),300);
+const saveSettings=()=>savePriv('settings',()=>ST.settings,200);
+const saveReports=()=>savePriv('reports',()=>({list:ST.reports}),200);
+
+function settingsBox(){
+  modal(`<h3>Настройки</h3>
+    <div class="fl"><span class="lbl">Кто вы</span><div class="filters"><button class="btn" data-act="role" data-r="student" aria-pressed="${!ST.isTeacher}">Ученик</button><button class="btn" data-act="role" data-r="teacher" aria-pressed="${ST.isTeacher}">Учитель</button></div></div>
+    <label class="fl"><span class="lbl">Имя для отчётов</span><input class="f" id="set-name" value="${h(ST.settings.name||'')}" placeholder="Аня Смирнова" autocomplete="name"></label>
+    <div class="fl"><span class="lbl">Резервная копия</span><p class="muted">Все колоды и прогресс хранятся в этом браузере. Сохраните копию, чтобы перенести их на другое устройство.</p>
+      <div class="row" style="justify-content:flex-start"><button class="btn" data-act="backup">Скачать копию</button><button class="btn" data-act="restore">Восстановить из файла</button></div>
+      <input type="file" id="restore-file" accept=".json,application/json" hidden></div>
+    <div class="row"><button class="btn primary" data-act="close">Готово</button></div>`);
+}
+function backup(){
+  const data={app:'scriptorium',v:1,at:Date.now(),data:LOCAL};
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data)],{type:'application/json'}));
+  a.download=`сад-слов-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);
+}
+function restoreFile(file){
+  const fr=new FileReader();fr.onload=()=>{try{const o=JSON.parse(fr.result);if(o.app!=='scriptorium'||!o.data)throw 0;LOCAL=o.data;saveLocal();toast('Копия восстановлена');setTimeout(()=>location.reload(),600);}
+    catch(e){toast('Это не файл копии «Сада слов».');}};fr.readAsText(file);
+}
+function repCard(r){
+  const weak=[];(r.d||[]).forEach(d=>(d.weak||[]).forEach(w=>weak.push(w)));weak.sort((a,b)=>b.miss-a.miss);
+  return `<article class="deck"><div class="head"><span class="initial">${h(((r.n||'?').trim()[0]||'?').toUpperCase())}</span><div style="min-width:0"><h3>${h(r.n||'Без имени')}</h3>
+      <span class="mix" style="display:block">Отчёт от ${fmtDate(r.t)}</span><span class="mix" style="display:block">${rankOf(level(r.xp||0))} · ${r.xp||0} опыта · ${r.s||0} ${plural(r.s||0,'день','дня','дней')} подряд${r.g?` · на поляне ${r.g} ${plural(r.g,'растение','растения','растений')}`:''}</span></div></div>
+    ${(r.d||[]).map(d=>`<div class="prog-line"><span style="flex:1 1 45%;min-width:0;overflow-wrap:anywhere">${h(d.name)}</span><div class="bar"><i style="width:${d.total?Math.min(100,Math.round(d.learned/d.total*100)):0}%"></i></div><span>${d.learned}/${d.total}</span></div>`).join('')||'<p class="muted">Нет колод в отчёте.</p>'}
+    ${weak.length?`<div><span class="lbl">даются плохо</span><div class="chips" style="margin-top:6px">${weak.slice(0,14).map(w=>`<span class="chip">${h(w.f)}<b>×${w.miss}</b></span>`).join('')}</div></div>`:''}
+    <div class="acts"><button class="btn quiet" data-act="rmrep" data-n="${h(r.n||'')}">Убрать</button></div></article>`;
+}
+function teacherSection(){
+  const reps=ST.reports.slice().sort((a,b)=>(b.t||0)-(a.t||0));
+  return `<section class="sec"><div class="sec-head"><h2>Ученики</h2><div class="row"><button class="btn" data-act="paste">Вставить отчёт</button></div></div>
+    ${reps.length?`<div class="decks">${reps.map(repCard).join('')}</div>`:`<div class="empty"><p>Здесь появятся ученики, когда пришлют отчёт. Сначала откройте вкладку «Мои колоды» и нажмите «Поделиться» на нужной колоде. Ученик откроет ссылку, позанимается и нажмёт «Отчёт учителю» — откройте присланную ссылку, и он появится здесь.</p></div>`}</section>`;
+}
+
+/* ===================== поляна: растения за уроки ===================== */
+const PLANTS={
+  sprout:{name:'росток',g:'m',tier:'sprout'}, mushroom:{name:'грибок',g:'m',tier:'sprout'},
+  daisy:{name:'ромашка',g:'f',tier:'flower'}, tulip:{name:'тюльпан',g:'m',tier:'flower'}, lavender:{name:'лаванда',g:'f',tier:'flower'}, bluebell:{name:'колокольчик',g:'m',tier:'flower'},
+  peony:{name:'пион',g:'m',tier:'rare'}, sakura:{name:'сакура',g:'f',tier:'rare'}, olive:{name:'оливковое деревце',g:'n',tier:'rare'},
+};
+const GROW={m:'вырос',f:'выросла',n:'выросло'};
+const TIERS={sprout:['sprout','mushroom'],flower:['daisy','tulip','lavender','bluebell'],rare:['peony','sakura','olive']};
+const hashRng=str=>{let h=1779033703^str.length;for(let i=0;i<str.length;i++){h=Math.imul(h^str.charCodeAt(i),3432918353);h=h<<13|h>>>19;}
+  return ()=>{h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);return ((h^=h>>>16)>>>0)/4294967296;};};
+const saveGarden=()=>savePriv('garden',()=>ST.garden,300);
+function plantSVG(p){
+  const v=p.v||0, sh=(rx)=>`<ellipse cx="0" cy="1" rx="${rx}" ry="3" fill="rgba(10,51,35,.16)"/>`;
+  const stem=(d,w=2.2)=>`<path d="${d}" stroke="#5f7a3c" stroke-width="${w}" fill="none" stroke-linecap="round"/>`;
+  switch(p.type){
+    case 'sprout': return sh(9)+stem('M0 0 Q-1 -12 0 -20')+`<path d="M0 -13 Q-12 -20 -14 -10 Q-6 -7 0 -13Z" fill="#8fae5a"/><path d="M0 -18 Q12 -27 15 -15 Q6 -12 0 -18Z" fill="#a9c06a"/>`;
+    case 'mushroom': return sh(10)+`<path d="M-3 0 Q-4 -9 -2 -12 L2 -12 Q4 -9 3 0Z" fill="#f4ecd2" stroke="#e2d6b2" stroke-width=".6"/><path d="M-12 -11 Q0 -27 12 -11 Q0 -8 -12 -11Z" fill="${['#D3968C','#c9806f','#e0a99a'][v%3]}"/><circle cx="-5" cy="-16" r="1.6" fill="#fffdf2"/><circle cx="3" cy="-19" r="1.3" fill="#fffdf2"/><circle cx="6" cy="-14" r="1.1" fill="#fffdf2"/>`;
+    case 'daisy':{let s=sh(9)+stem('M0 0 Q2 -16 0 -32')+`<path d="M1 -12 Q10 -18 13 -10 Q6 -7 1 -12Z" fill="#8fae5a"/>`;
+      for(let i=0;i<10;i++) s+=`<ellipse cx="0" cy="-41" rx="2.8" ry="6.6" fill="#fffdf2" stroke="#e6dfbf" stroke-width=".6" transform="rotate(${i*36} 0 -34)"/>`;
+      return s+`<circle cx="0" cy="-34" r="4" fill="#e8b84a"/>`;}
+    case 'tulip':{const c=['#D3968C','#e48a7b','#e9a6bd'][v%3];return sh(9)+stem('M0 0 V-32',2.4)+`<path d="M0 -3 Q-15 -14 -8 -30 Q-4 -16 0 -10Z" fill="#8fae5a"/><path d="M0 -5 Q14 -16 9 -28 Q4 -16 0 -11Z" fill="#7d9c4c"/><path d="M-8 -34 Q-9 -47 -5 -51 L-2 -44 L0 -51 L2 -44 L5 -51 Q9 -47 8 -34 Q0 -29 -8 -34Z" fill="${c}"/><path d="M-2 -44 L0 -51 L2 -44 Q0 -38 -2 -44Z" fill="rgba(255,253,242,.35)"/>`;}
+    case 'lavender':{let s=sh(10);[-6,0,6].forEach((dx,k)=>{const top=-30-(k===1?6:0);s+=stem(`M${dx/3} 0 Q${dx/2} -14 ${dx} ${top}`,1.6);
+      for(let j=0;j<5;j++)s+=`<ellipse cx="${dx+(j%2?1:-1)}" cy="${top-j*3.4}" rx="2.2" ry="2.8" fill="${j%2?'#9b8bc7':'#b4a6dc'}"/>`;});
+      return s+`<path d="M-1 -4 Q-10 -10 -12 -4 Q-6 -2 -1 -4Z" fill="#9cb06a"/>`;}
+    case 'bluebell':{let s=sh(9)+stem('M0 0 Q-3 -30 12 -38',2)+`<path d="M0 -6 Q-12 -12 -12 -26 Q-4 -16 0 -12Z" fill="#8fae5a"/>`;
+      [[1,-27],[5,-33],[11,-37]].forEach(([x,y],i)=>{s+=`<path d="M${x-3.4} ${y+7} Q${x-3.6} ${y} ${x} ${y} Q${x+3.6} ${y} ${x+3.4} ${y+7} Q${x} ${y+5.6} ${x-3.4} ${y+7}Z" fill="${i===1?'#5d8cc0':'#6f9fd1'}"/>`;});return s;}
+    case 'peony':{let s=sh(18)+`<path d="M-19 0 Q-24 -16 -9 -19 Q-2 -7 -4 0Z" fill="#7d9c4c"/><path d="M19 0 Q24 -16 9 -19 Q2 -7 4 0Z" fill="#6f8a46"/><path d="M-6 0 Q-4 -24 0 -26 Q4 -24 6 0Z" fill="#8fae5a"/><path d="M-14 -14 Q-20 -30 -6 -30 Q-4 -20 -14 -14Z" fill="#9cb06a"/><path d="M14 -18 Q22 -32 8 -34 Q5 -24 14 -18Z" fill="#7d9c4c"/>`;
+      const fl=(x,y,r)=>{let f='';for(let i=0;i<7;i++){const a=i/7*Math.PI*2;f+=`<circle cx="${(x+Math.cos(a)*r*.48).toFixed(1)}" cy="${(y+Math.sin(a)*r*.48).toFixed(1)}" r="${(r*.55).toFixed(1)}" fill="#e59b97"/>`;}
+        return f+`<circle cx="${x}" cy="${y}" r="${r*.62}" fill="#f0b4ae"/><circle cx="${x}" cy="${y}" r="${r*.34}" fill="#f9d6cf"/><path d="M${x-r*.3} ${y} q${r*.3} ${-r*.3} ${r*.6} 0" stroke="#e59b97" stroke-width="1" fill="none"/>`;};
+      return s+fl(-10,-22,9)+fl(10,-27,9.5)+fl(0,-39,10);}
+    case 'sakura':{const r=hashRng(p.id);let s=sh(22)+`<path d="M-3 0 Q-4 -18 -1 -30 Q-10 -38 -14 -44 M-1 -30 Q6 -40 10 -48 M-1 -30 Q0 -42 1 -52" stroke="#7a5638" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M-4 0 Q-5 -16 -2 -28 L2 -28 Q1 -14 3 0Z" fill="#7a5638"/>`;
+      for(let i=0;i<16;i++){const a=r()*Math.PI*2,d=r()*18;s+=`<circle cx="${(Math.cos(a)*d*1.2).toFixed(1)}" cy="${(-50+Math.sin(a)*d*.8).toFixed(1)}" r="${(7+r()*5).toFixed(1)}" fill="${['#f2c4c8','#e9a9b1','#f8dfe0'][i%3]}"/>`;}
+      for(let i=0;i<6;i++){const px=(-20+r()*40).toFixed(1),py=(-1-r()*4).toFixed(1),rot=(r()*360).toFixed(0);s+=`<path d="M0 0 Q1.7 -1.1 1.3 -2.7 L0.5 -2.2 L0 -2.9 L-0.5 -2.2 L-1.3 -2.7 Q-1.7 -1.1 0 0Z" fill="${i%2?'#f6d3d6':'#efbcc3'}" opacity=".9" transform="translate(${px} ${py}) scale(1 .62) rotate(${rot})"/>`;}return s;}
+    case 'olive':{const r=hashRng(p.id);let s=sh(20)+`<path d="M-3 0 Q-6 -14 0 -24 Q4 -32 -2 -40 M0 -24 Q8 -30 12 -36" stroke="#8a6a4a" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+      for(let i=0;i<14;i++){const a=r()*Math.PI*2,d=r()*17;s+=`<circle cx="${(Math.cos(a)*d*1.25).toFixed(1)}" cy="${(-46+Math.sin(a)*d*.75).toFixed(1)}" r="${(7+r()*5).toFixed(1)}" fill="${['#839958','#9cb06a','#6f8a46'][i%3]}"/>`;}
+      for(let i=0;i<7;i++){const a=r()*Math.PI*2,d=r()*16;s+=`<ellipse cx="${(Math.cos(a)*d*1.2).toFixed(1)}" cy="${(-46+Math.sin(a)*d*.7).toFixed(1)}" rx="1.6" ry="2.1" fill="#3f5228"/>`;}return s;}
+  }
+  return '';
+}
+const plantTitle=p=>`${PLANTS[p.type].name[0].toUpperCase()+PLANTS[p.type].name.slice(1)} · ${new Date(p.t).toLocaleDateString('ru-RU',{day:'numeric',month:'long'})}${p.acc!=null?` · точность ${p.acc}%`:''}`;
+function ensurePlant(){
+  if(V.planted!==undefined) return V.planted;
+  let n=0,acc=0;
+  if(V.name==='study'){n=V.done;acc=n?(n-V.again)/n:0;}
+  else if(V.name==='quiz'){n=V.qs.length;acc=n?V.score/n:0;}
+  else if(V.name==='match'){n=V.tiles.length/2;acc=V.mistakes===0?1:Math.max(0,1-V.mistakes/n);}
+  if(n<3){V.planted=null;return null;}
+  const tier=acc>=1?'rare':acc>=.7?'flower':'sprout', list=TIERS[tier];
+  const p={id:uid(),type:list[Math.floor(Math.random()*list.length)],v:Math.floor(Math.random()*3),t:Date.now(),acc:Math.round(acc*100)};
+  ST.garden.plants.push(p); if(ST.garden.plants.length>400) ST.garden.plants.shift(); saveGarden();
+  V.planted=p; return p;
+}
+function rewardHTML(){
+  const p=ensurePlant(); if(!p) return '';
+  const info=PLANTS[p.type], rare=info.tier==='rare';
+  return `<div class="reward"><svg class="reward-plant" viewBox="-34 -78 68 84" aria-hidden="true"><g class="pl-grow">${plantSVG(p)}</g></svg>
+    <p>На поляне ${GROW[info.g]} <b>${info.name}</b>${rare?' — за урок без ошибок!':info.tier==='sprout'?'. Без ошибок вырастет дерево или пион.':'.'}</p>
+    <button class="btn" data-act="garden">На поляну</button></div>`;
+}
+function meadowSVG(plants,{cols=8,newSince=0,mini=false}={}){
+  const W=600, IH=W*1152/1365, CROP=mini?0:150, cell=W/cols, top=mini?18:370-CROP, rowH=mini?0:66, rows=mini?1:Math.max(3,Math.ceil(plants.length/cols)), H=mini?112:top+rows*rowH+60;
+  const rr=hashRng('meadow'+cols+rows);
+  let g=`<rect width="${W}" height="${H}" fill="#b5c47d"/><image href="${window.BGIMG||''}" x="0" y="${mini?(112-IH).toFixed(1):-CROP}" width="${W}" height="${IH.toFixed(1)}" preserveAspectRatio="none"/>`;
+  if(!mini) for(let i=0;i<rows*7;i++){const x=rr()*W,y=IH-CROP+6+rr()*(H-IH+CROP-10);if(y>H-4)continue;g+=`<path d="M${x.toFixed(0)} ${y.toFixed(0)} l-2 -5 M${x.toFixed(0)} ${y.toFixed(0)} l0 -6 M${x.toFixed(0)} ${y.toFixed(0)} l2 -5" stroke="#97ad66" stroke-width="1.2" stroke-linecap="round"/>`;}
+  const placed=plants.map((p,i)=>{const r=hashRng(p.id);
+    if(mini) return {p,x:W/2-(plants.length-1)*27+i*54,y:100};
+    const row=Math.floor(i/cols),col=i%cols;return {p,x:Math.min(W-44,Math.max(44,cell*(col+.5)+(row%2?cell*.22:-cell*.08)+(r()-.5)*cell*.3)),y:top+70+row*rowH+(r()-.5)*14};});
+  placed.sort((a,b)=>a.y-b.y).forEach(({p,x,y},k)=>{x=+x;
+    const fresh=p.t>newSince&&!mini, rt=hashRng(p.id+'s');
+    const tf={sakura:1.75,olive:1.75,peony:1.2,sprout:.8,mushroom:.8}[p.type]||.85, sc=mini?.9*(tf>1.5?1.15:tf):1.25*tf;
+    if(!mini) x=Math.min(W-26*sc,Math.max(26*sc,x));
+    g+=`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${sc.toFixed(2)})"><title>${plantTitle(p)}</title><g class="pl-sway" style="animation-delay:-${(rt()*5).toFixed(2)}s"><g class="${fresh?'pl-grow':''}" ${fresh?`data-fresh="1" style="animation-delay:${(k*0.04).toFixed(2)}s"`:''}>${plantSVG(p)}</g></g></g>`;
+  });
+  if(!mini&&!reduceMotion){const n=Math.min(6,Math.floor(plants.length/5));
+    for(let i=0;i<n;i++){const r=hashRng('b'+i),c=['#D3968C','#e8b84a','#9b8bc7','#6f9fd1'][i%4];
+      const pts=Array.from({length:4},()=>`${(40+r()*(W-80)).toFixed(0)} ${(top+r()*(H-top-30)).toFixed(0)}`);
+      g+=`<g><g transform="scale(1.3)"><g><path d="M0 0 Q-7 -8 -9 -1 Q-7 4 0 0Z M0 0 Q7 -8 9 -1 Q7 4 0 0Z" fill="${c}"/><path d="M0 -3 V3" stroke="#3b2a20" stroke-width="1.2"/>
+        <animateTransform attributeName="transform" type="scale" values="1 1;.25 1;1 1" dur="${(.3+r()*.15).toFixed(2)}s" repeatCount="indefinite"/></g></g>
+        <animateMotion dur="${(16+r()*10).toFixed(1)}s" repeatCount="indefinite" rotate="0" path="M${pts[0]} Q${pts[1]} ${pts[2]} T${pts[3]} T${pts[0]}"/></g>`;}}
+  if(!plants.length&&!mini) g+=`<g transform="translate(${W/2} ${top+70})"><rect x="-150" y="-26" width="300" height="52" rx="26" fill="#FFFDF2" stroke="rgba(10,51,35,.14)"/><text x="0" y="6" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" fill="#0A3323">Пройди урок — появится первый росток</text></g>`;
+  return `<svg class="meadow" viewBox="0 0 ${W} ${H}" role="img" aria-label="Поляна: ${plants.length} ${plural(plants.length,'растение','растения','растений')}">${g}</svg>`;
+}
+function gardenCounts(){const c={sprout:0,flower:0,rare:0};ST.garden.plants.forEach(p=>c[PLANTS[p.type].tier]++);return c;}
+function gardenStrip(){
+  const pl=ST.garden.plants, c=gardenCounts();
+  return `<section class="garden-card"><div class="sec-head"><h2>Моя <em>поляна</em></h2><div class="row"><button class="btn primary" data-act="garden">Открыть поляну${pl.length?` · ${pl.length}`:''}</button></div></div>
+    <button class="meadow-mini" data-act="garden" aria-label="Открыть поляну">${meadowSVG(pl.slice(-10),{mini:true})}</button>
+    <p class="muted">${pl.length?`Деревьев и пионов: ${c.rare} · цветов: ${c.flower} · ростков: ${c.sprout}. Каждый пройденный урок — новое растение.`:'Каждый пройденный урок — новое растение. Урок без ошибок вырастит пион, сакуру или оливковое деревце.'}</p></section>`;
+}
+function vGarden(){
+  const pl=ST.garden.plants, c=gardenCounts(), since=V.since;
+  return `${modebar('Награды за уроки','Моя поляна')}
+    <div class="chips garden-legend"><span class="chip">Без ошибок — пион, сакура или оливковое деревце<b>${c.rare}</b></span><span class="chip">70% и больше — цветок<b>${c.flower}</b></span><span class="chip">Меньше — росток или грибок<b>${c.sprout}</b></span><span class="chip">Каждые 5 растений — бабочка<b>${Math.min(6,Math.floor(pl.length/5))}</b></span></div>
+    <div class="meadow-wrap">${meadowSVG(pl,{newSince:since,cols:innerWidth<560?5:8})}</div>`;
+}
+
+/* ===================== модальные окна ===================== */
+function modal(html){const m=$('#modal');m.innerHTML=`<div class="box panel" role="dialog" aria-modal="true">${html}</div>`;m.hidden=false;fillPeople();}
+function closeModal(){$('#modal').hidden=true;$('#modal').innerHTML='';}
+
+/* ===================== события ===================== */
+document.addEventListener('submit',e=>{e.preventDefault();const f=e.target.dataset.form;if(f==='check')submitCheck();else if(f==='qcheck')qcheck();});
+document.addEventListener('click',e=>{
+  if(e.target.id==='modal'){closeModal();return;}
+  const hitsBox=$('#hits'); if(hitsBox&&!e.target.closest('.add')) hitsBox.hidden=true;
+  const b=e.target.closest('[data-act]'); if(!b) return;
+  if(swallow&&b.id==='flipcard') return;
+  const key=b.dataset.key, a=b.dataset.act;
+  const openEdit=k=>{const dk=getDeck(k);go({name:'edit',key:k,draft:clone({name:dk.name,cards:dk.cards})});};
+  if(a!=='sound'){SND.tick();const r=e.detail>0?{x:e.clientX,y:e.clientY}:rectOf(b);if(r)FX.ring(r.x,r.y,'rgba(10,51,35,.4)',22);}
+  const A={
+    guidetip:()=>{V.say=rnd(SAY.tips.filter(t=>t!==V.say));V.mood='happy';SND.hint();renderGuide();},
+    sound:()=>{SND.on=!SND.on;try{localStorage.setItem('scriptorium-sound',SND.on?'on':'off')}catch(_){}renderHeader();if(SND.on)SND.select();},
+    home:()=>{closeModal();go({name:'home'})},
+    tab:()=>{ST.tab=b.dataset.tab;render();},
+    edit:()=>openEdit(key),
+    list:()=>go({name:'list',key,filter:'all'}),
+    weak:()=>go({name:'weak'}),
+    filter:()=>{V.filter=b.dataset.f;render();},
+    study:()=>startStudy(key), quiz:()=>startQuiz(key), match:()=>startMatch(key),
+    drill:()=>startDrill(key||null),
+    flash:()=>{const dk=getDeck(key);go({name:'flash',key,order:dk.cards.filter(valid).map(c=>c.id),i:0,flipped:false,swap:false,known:0,unknown:0});},
+    newmine:()=>{const d={id:uid(),name:'Новая колода',cards:[mkCard('','')]};ST.myDecks.unshift(d);saveMine();go({name:'edit',key:'m:'+d.id,draft:clone({name:d.name,cards:d.cards})});focusName();},
+    newpupil:()=>{const id=uid(),sid=ST.selStu,data={name:'Новые задания',cards:[],createdAt:Date.now(),updatedAt:Date.now()};
+      ST.stuDecks.push({id,...data});
+      ST.db.doc(`assigned/${sid}/decks/${id}`).set(data).catch(()=>toast('Не удалось создать колоду. Проверьте подключение.'));
+      go({name:'edit',key:`t:${sid}:${id}`,draft:{name:data.name,cards:[mkCard('','')]}});focusName();},
+    selstu:()=>selectStudent(b.dataset.sid),
+    addstu:()=>addStudent(b.dataset.sid),
+    rmstu:()=>modal(`<h3>Убрать ученика из класса?</h3><p><span data-uid="${ST.selStu}">Ученик</span> исчезнет из списка вместе со своими колодами. Если он снова откроет страницу, то появится в списке заново, но уже без колод.</p>
+      <div class="row"><button class="btn quiet" data-act="close">Отмена</button><button class="btn danger" data-act="rmstu2">Убрать</button></div>`),
+    rmstu2:async()=>{const sid=ST.selStu;closeModal();const ds=ST.stuDecks.slice();selectStudent(null,false);
+      try{for(const d of ds) await ST.db.doc(`assigned/${sid}/decks/${d.id}`).delete(); await ST.db.doc('students/'+sid).delete();}catch(e){toast('Не удалось убрать ученика полностью.');}
+      ST.selStu=null; render();},
+    copyto:()=>{const dk=getDeck(key);const others=sortedStudents().filter(s=>s.id!==dk.sid);
+      modal(`<h3>Дать колоду другому ученику</h3><p class="muted">«${h(dk.name)}» скопируется. Прогресс и ошибки у каждого ученика будут свои.</p>
+        <div style="display:flex;flex-direction:column">${others.map(s=>`<button class="stu" data-act="copyto2" data-sid="${s.id}" data-key="${key}"><img data-uid="${s.id}" alt=""><div><div class="nm" data-uid="${s.id}">…</div></div></button>`).join('')}</div>
+        <div class="row"><button class="btn quiet" data-act="close">Закрыть</button></div>`);},
+    copyto2:()=>{const dk=getDeck(key);const id=uid();
+      ST.db.doc(`assigned/${b.dataset.sid}/decks/${id}`).set({name:dk.name,cards:dk.cards.map(c=>mkCard(c.f,c.b,tOf(c))),createdAt:Date.now(),updatedAt:Date.now()})
+        .then(()=>toast('Колода скопирована')).catch(()=>toast('Не удалось скопировать.'));b.disabled=true;},
+    close:closeModal,
+    garden:()=>{closeModal();const since=ST.garden.seenT||0;ST.garden.seenT=Date.now();saveGarden();go({name:'garden',since});},
+    share:()=>shareDeck(key),
+    webshare:()=>{navigator.share({title:SHARE.title,text:SHARE.text,url:SHARE.link||undefined}).catch(()=>{});},
+    copylink:()=>copyText(SHARE.link),
+    copycode:()=>copyText(SHARE.code),
+    paste:()=>pasteBox(),
+    paste2:()=>{const v=$('#pastebox').value;if(!v.trim()){$('#pastebox').focus();return;}importCode(v);},
+    impok:()=>importConfirm(),
+    report:()=>reportStart(),
+    report2:()=>reportMake(),
+    settings:()=>settingsBox(),
+    role:()=>{ST.isTeacher=b.dataset.r==='teacher';ST.settings.role=b.dataset.r;saveSettings();ST.tab=ST.reports.length?'students':'mine';renderHeader();settingsBox();if(V.name==='home')render();},
+    backup:()=>backup(),
+    restore:()=>$('#restore-file')?.click(),
+    rmrep:()=>{ST.reports=ST.reports.filter(r=>(r.n||'')!==b.dataset.n);saveReports();render();toast('Отчёт убран');},
+    rmasg:()=>{const dk=getDeck(key);modal(`<h3>Убрать колоду?</h3><p>«${h(dk.name)}» исчезнет вместе с прогрессом. Если учитель пришлёт ссылку снова, колода вернётся, но уже без прогресса.</p><div class="row"><button class="btn quiet" data-act="close">Оставить</button><button class="btn danger" data-act="rmasg2" data-key="${key}">Убрать</button></div>`);},
+    rmasg2:()=>{const dk=getDeck(key);ST.assigned=ST.assigned.filter(d=>d.id!==dk.id);delete ST.srs[dk.key];saveAssigned();saveSrs();closeModal();render();toast('Колода убрана');},
+    addcard:()=>{V.draft.cards.push(mkCard('','',b.dataset.t||'word'));render();const r=document.querySelectorAll('textarea[data-field="f"]');r[r.length-1]?.focus();},
+    delcard:()=>{V.draft.cards=V.draft.cards.filter(c=>c.id!==b.dataset.cid);saveDraft();render();},
+    bulktype:()=>{const v=$('#bulk').value;V.bulkType=b.dataset.t;render();$('#bulk').value=v;},
+    deldeck:()=>modal(`<h3>Удалить колоду?</h3><p>«${h(V.draft.name)}» и все задания в ней исчезнут${getDeck(V.key).source==='pupil'?' и у ученика':''}. Вернуть их будет нельзя.</p>
+      <div class="row"><button class="btn quiet" data-act="close">Оставить</button><button class="btn danger" data-act="deldeck2">Удалить</button></div>`),
+    deldeck2:()=>{const dk=getDeck(V.key);closeModal();
+      if(dk.source==='mine'){ST.myDecks=ST.myDecks.filter(d=>d.id!==dk.id);delete ST.srs[dk.key];saveMine();saveSrs();}
+      else{const p=`assigned/${dk.sid}/decks/${dk.id}`;if(Q[p])clearTimeout(Q[p].t);ST.stuDecks=ST.stuDecks.filter(d=>d.id!==dk.id);ST.db.doc(p).delete().catch(()=>toast('Не удалось удалить.'));}
+      go({name:'home'});toast('Колода удалена');},
+    bulk:()=>bulkAdd(),
+    show:()=>{V.shown=true;V.say=null;V.mood='';SND.flip();afterRender(()=>{pulse('.leaf .a','reveal');const r=rectOf('.leaf .a');if(r)FX.burst(r.x,r.y,{n:18,speed:3,g:0,colors:['#b5c77d','#839958']});});render();},
+    giveup:()=>{V.ans='';V.res='bad';V.say='Ничего. Запомни ответ — я верну это слово позже.';V.mood='sad';loseLife();afterRender(()=>{boo();pulse('.leaf','hit');});render();},
+    grade:()=>{if(b.dataset.refund)V.lives=Math.min(MAXL,V.lives+1);grade(+b.dataset.g);},
+    dnext:()=>{if(b.dataset.refund)V.lives=Math.min(MAXL,V.lives+1);drillNext(b.dataset.ok==='1');},
+    hint:()=>{V.hint=true;V.say=null;V.mood='';SND.hint();afterRender(()=>{const r=rectOf('.hintbox')||rectOf('.leaf');if(r)FX.burst(r.x,r.y,{n:20,speed:3,g:0,colors:['#105666','#7fa7ae']});});if(V.name==='quiz'){const q=V.qs[V.i];if(q.mode==='mc')V.gone=shuffle(q.opts.filter(o=>o!==q.id)).slice(0,2);}render();},
+    revive:()=>{SND.heal();if(V.name==='match'){startMatch(V.key);return;}V.lives=MAXL;V.over=false;V.overFx=false;V.say='Новая попытка! Пять жизней снова с тобой.';V.mood='happy';V.fx={i:MAXL-1,t:'gain'};V.run=0;V.hint=false;V.fx=null;if(V.name==='quiz'){qnext();return;}render();},
+    flip:()=>flip(),
+    know:()=>know(b.dataset.ok==='1'),
+    fmove:()=>fmove(+b.dataset.d),
+    fshuffle:()=>{V.order=shuffle(V.order);V.i=0;V.flipped=false;render();},
+    fswap:()=>{V.swap=!V.swap;V.flipped=false;render();},
+    pick:()=>pick(b.dataset.oid),
+    qnext:()=>qnext(),
+    tile:()=>tile(+b.dataset.k),
+  };
+  A[a]&&A[a]();
+});
+function bulkAdd(){
+  const t=V.bulkType||'word'; const seps=['\t',' — ',' – ',' - ','—','–',';'];let n=0,bad=0;
+  $('#bulk').value.split('\n').map(l=>l.trim()).filter(Boolean).forEach(l=>{
+    const s=seps.find(x=>l.includes(x));
+    let f=l,bk='';
+    if(s){const i=l.indexOf(s);f=l.slice(0,i).trim();bk=l.slice(i+s.length).trim();}
+    if(t==='gap'){if(!groups(f).length){bad++;return;}}
+    else if(!f||!bk){bad++;return;}
+    V.draft.cards.push(mkCard(f,bk,t));n++;});
+  V.draft.cards=V.draft.cards.filter(c=>c.f||c.b);
+  if(n){saveDraft();render();toast(`Добавлено заданий: ${n}`);}
+  if(bad){const el=$('#bulk-err');el.hidden=false;el.textContent=t==='gap'?`Не разобрано строк: ${bad}. В каждом предложении пропуск должен быть в [квадратных скобках].`:`Не разобрано строк: ${bad}. Разделите задание и ответ тире, «;» или табуляцией.`;}
+}
+function focusName(){setTimeout(()=>{const n=$('#deck-name');n&&(n.focus(),n.select())},30);}
+function flip(){V.flipped=!V.flipped;$('#flipcard')?.classList.toggle('is-flipped',V.flipped);SND.flip();const r=rectOf('#flipcard');if(r)FX.burst(r.x,r.y,{n:16,speed:3.2,g:0,drag:.92,colors:['#b5c77d','#839958']});}
+function fmove(d){V.i=(V.i+d+V.order.length)%V.order.length;V.flipped=false;render();}
+async function addStudent(sid){
+  $('#hits').hidden=true; $('#stu-search').value='';
+  if(ST.students.some(s=>s.id===sid)){selectStudent(sid);return;}
+  try{await ST.db.doc('students/'+sid).set({addedAt:Date.now(),progress:{}});selectStudent(sid);toast('Ученик добавлен');}
+  catch(e){toast('Не удалось добавить ученика.');}
+}
+
+let edT;
+document.addEventListener('input',async e=>{
+  const t=e.target;
+  if(t.id==='set-name'){ST.settings.name=t.value;saveSettings();return;}
+  if(t.id==='stu-search'){
+    const hits=await ST.user.search(t.value.trim()); const box=$('#hits'); if(!box) return;
+    const list=hits.filter(p=>!p.isMe);
+    box.innerHTML=list.length?list.map(p=>`<button class="stu" data-act="addstu" data-sid="${h(p.id)}"><img alt="" src="${h(p.avatarUrl)}"><div><div class="nm"></div><div class="meta">${ST.students.some(s=>s.id===p.id)?'уже в классе':'добавить'}</div></div></button>`).join('')
+      :`<p class="muted" style="padding:12px">${t.value.trim()?'Никого не нашлось. Ученик появится в списке сам, когда откроет страницу.':'Начните вводить имя.'}</p>`;
+    [...box.querySelectorAll('.nm')].forEach((el,i)=>el.textContent=list[i].name);
+    box.hidden=false; return;
+  }
+  if(V.name!=='edit') return;
+  if(t.id==='deck-name') V.draft.name=t.value;
+  else if(t.dataset.cid){const c=V.draft.cards.find(x=>x.id===t.dataset.cid);if(!c)return;c[t.dataset.field]=t.value;
+    if(t.dataset.field==='t'){saveDraft();render();return;}
+    if(t.dataset.field==='f'){const note=$('#note-'+c.id);if(note){const bad=tOf(c)==='gap'&&c.f.trim()&&!groups(c.f).length;note.hidden=!bad;note.textContent=bad?'Обведите пропущенное слово квадратными скобками: She [is] a doctor.':'';}}}
+  else return;
+  const el=$('#saved'); if(el) el.textContent='Сохраняется…';
+  clearTimeout(edT); edT=setTimeout(saveDraft,500);
+});
+document.addEventListener('change',e=>{if(e.target.id==='restore-file'&&e.target.files[0]){restoreFile(e.target.files[0]);return;}if(e.target.tagName==='SELECT'&&V.name==='edit'&&e.target.dataset.field==='t'){e.target.dispatchEvent(new Event('input',{bubbles:true}));}});
+document.addEventListener('focusin',e=>{if(e.target.id==='stu-search'&&ST.user){e.target.dispatchEvent(new Event('input',{bubbles:true}));}});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){if(!$('#modal').hidden)closeModal();const hb=$('#hits');if(hb)hb.hidden=true;return;}
+  if(['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) return;
+  const clickBtn=sel=>{const el=document.querySelector(sel);if(el){e.preventDefault();el.click();return true;}return false;};
+  if(V.name==='study'&&V.queue&&V.queue.length){
+    if(e.key===' '&&clickBtn('[data-act="show"]')) return;
+    if(e.key==='Enter'){ if(V.res){ if(V.drill) clickBtn('[data-act="dnext"]'); else if(V.res==='bad') clickBtn('[data-g="0"]'); else clickBtn(`[data-g="${V.res==='typo'?1:2}"]`); } else clickBtn('[data-act="show"]'); return; }
+    if(/^[1-4]$/.test(e.key)){ if(V.drill&&!V.res){clickBtn(`[data-act="dnext"][data-ok="${e.key==='1'?0:1}"]`);} else clickBtn(`[data-act="grade"][data-g="${+e.key-1}"]`); }
+  }else if(V.name==='flash'){
+    if(e.key===' '){e.preventDefault();flip();} else if(e.key==='ArrowRight')fmove(1); else if(e.key==='ArrowLeft')fmove(-1);
+    else if(e.key==='1')clickBtn('[data-act="know"][data-ok="0"]'); else if(e.key==='2')clickBtn('[data-act="know"][data-ok="1"]');
+  }else if(V.name==='quiz'&&V.i<V.qs.length){
+    const q=V.qs[V.i];
+    if(q.mode==='mc'&&!V.picked&&/^[1-4]$/.test(e.key)&&q.opts[+e.key-1]) pick(q.opts[+e.key-1]);
+    else if(e.key==='Enter') clickBtn('[data-act="qnext"]');
+  }
+});
+
+(function(){const m=$('#motes');if(!m)return;for(let i=0;i<18;i++){const e=document.createElement('i');e.style.left=(Math.random()*100)+'%';e.style.animationDuration=(14+Math.random()*16)+'s';e.style.animationDelay=(-Math.random()*25)+'s';e.style.setProperty('--dx',(Math.random()*80-40)+'px');if(i%3===0){e.style.background='#a9bc72';}e.style.transform='scale('+(0.7+Math.random()*0.8)+')';m.appendChild(e);}})();
+document.addEventListener('pointerdown',()=>SND.unlock(),{passive:true});
+document.addEventListener('touchend',()=>SND.unlock(),{passive:true});
+/* свайпы по карточке: вправо — «знаю», влево — «не знаю» */
+let SW=null, swallow=false;
+document.addEventListener('pointerdown',e=>{const f=e.target.closest('#flipcard');if(!f||V.name!=='flash')return;SW={x:e.clientX,y:e.clientY,id:e.pointerId,moved:false};},{passive:true});
+document.addEventListener('pointermove',e=>{if(!SW||e.pointerId!==SW.id)return;const dx=e.clientX-SW.x,dy=e.clientY-SW.y;
+  if(!SW.moved&&Math.abs(dx)>10&&Math.abs(dx)>Math.abs(dy))SW.moved=true;
+  if(SW.moved){const w=$('.flip-wrap');if(w){w.style.transition='none';w.style.transform=`translateX(${dx}px) rotate(${dx/22}deg)`;w.dataset.dir=dx>40?'yes':dx<-40?'no':'';}}},{passive:true});
+function endSwipe(e){if(!SW||e.pointerId!==SW.id)return;const dx=e.clientX-SW.x,moved=SW.moved;SW=null;const w=$('.flip-wrap');
+  if(w){w.style.transition='transform .25s ease';w.style.transform='';w.dataset.dir='';}
+  if(moved){swallow=true;setTimeout(()=>swallow=false,50);const dk=getDeck(V.key);if(Math.abs(dx)>80&&dk&&dk.studiable)know(dx>0);}}
+document.addEventListener('pointerup',endSwipe,{passive:true});document.addEventListener('pointercancel',endSwipe,{passive:true});
+FX.init();
+boot();
+
+</script>
+</body>
+</html>
